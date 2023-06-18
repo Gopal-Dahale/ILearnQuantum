@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on ILearnQuantum</title>
+    <link>https://gopal-dahale.github.io/ILearnQuantum/posts/</link>
+    <description>Recent content in Posts on ILearnQuantum</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 18 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://gopal-dahale.github.io/ILearnQuantum/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deterministic MBITE</title>
+      <link>https://gopal-dahale.github.io/ILearnQuantum/posts/dmbite/dmbite/</link>
+      <pubDate>Sun, 18 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://gopal-dahale.github.io/ILearnQuantum/posts/dmbite/dmbite/</guid>
+      <description>Paper: ( Citation: Mao,&amp;#32;Chaudhary &amp;amp; al.,&amp;#32;2022 Mao,&amp;#32; Y.,&amp;#32; Chaudhary,&amp;#32; M.,&amp;#32; Kondappan,&amp;#32; M.,&amp;#32; Shi,&amp;#32; J.,&amp;#32; Ilo-Okeke,&amp;#32; E.,&amp;#32; Ivannikov,&amp;#32; V.&amp;#32;&amp;amp;&amp;#32;Byrnes,&amp;#32; T. &amp;#32; (2022). &amp;#32; Deterministic measurement-based imaginary time evolution. https://doi.org/0.48550/arXiv.2202.09100 ) Imaginary time evolution (ITE) ITE is a technique to find the ground state of a system where the time t is replaced by imagainary time $i\tau$. To understand this, let us consider the time-dependent Schrodinger equation for a system with Hamiltonian $H$:</description>
+    </item>
+    
+  </channel>
+</rss>

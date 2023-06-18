@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://gopal-dahale.github.io/ILearnQuantum/sitemap.xml

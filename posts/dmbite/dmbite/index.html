@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Deterministic MBITE | ILearnQuantum</title>
+<meta name="keywords" content="QOSF">
+<meta name="description" content="Paper: ( Citation: Mao,&#32;Chaudhary &amp; al.,&#32;2022 Mao,&#32; Y.,&#32; Chaudhary,&#32; M.,&#32; Kondappan,&#32; M.,&#32; Shi,&#32; J.,&#32; Ilo-Okeke,&#32; E.,&#32; Ivannikov,&#32; V.&#32;&amp;&#32;Byrnes,&#32; T. &#32; (2022). &#32; Deterministic measurement-based imaginary time evolution. https://doi.org/0.48550/arXiv.2202.09100 ) Imaginary time evolution (ITE) ITE is a technique to find the ground state of a system where the time t is replaced by imagainary time $i\tau$. To understand this, let us consider the time-dependent Schrodinger equation for a system with Hamiltonian $H$:">
+<meta name="author" content="Gopal Ramesh Dahale, Radoica Draškić">
+<link rel="canonical" href="https://gopal-dahale.github.io/ILearnQuantum/posts/dmbite/dmbite/">
+<link crossorigin="anonymous" href="/ILearnQuantum/assets/css/stylesheet.4fd967528ad5a75f3ce961dbda94c03a4739e156197539fdac72973ab0f932e0.css" integrity="sha256-T9lnUorVp1886WHb2pTAOkc54VYZdTn9rHKXOrD5MuA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/ILearnQuantum/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://gopal-dahale.github.io/ILearnQuantum/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://gopal-dahale.github.io/ILearnQuantum/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://gopal-dahale.github.io/ILearnQuantum/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://gopal-dahale.github.io/ILearnQuantum/apple-touch-icon.png">
+<link rel="mask-icon" href="https://gopal-dahale.github.io/ILearnQuantum/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+onload="renderMathInElement(document.body,
+        {
+              delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false},
+              ],
+              throwOnError : false
+          });"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="/hugo-cite.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9MSJDZKGWH"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9MSJDZKGWH', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="Deterministic MBITE" />
+<meta property="og:description" content="Paper: ( Citation: Mao,&#32;Chaudhary &amp; al.,&#32;2022 Mao,&#32; Y.,&#32; Chaudhary,&#32; M.,&#32; Kondappan,&#32; M.,&#32; Shi,&#32; J.,&#32; Ilo-Okeke,&#32; E.,&#32; Ivannikov,&#32; V.&#32;&amp;&#32;Byrnes,&#32; T. &#32; (2022). &#32; Deterministic measurement-based imaginary time evolution. https://doi.org/0.48550/arXiv.2202.09100 ) Imaginary time evolution (ITE) ITE is a technique to find the ground state of a system where the time t is replaced by imagainary time $i\tau$. To understand this, let us consider the time-dependent Schrodinger equation for a system with Hamiltonian $H$:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gopal-dahale.github.io/ILearnQuantum/posts/dmbite/dmbite/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-18T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-06-18T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deterministic MBITE"/>
+<meta name="twitter:description" content="Paper: ( Citation: Mao,&#32;Chaudhary &amp; al.,&#32;2022 Mao,&#32; Y.,&#32; Chaudhary,&#32; M.,&#32; Kondappan,&#32; M.,&#32; Shi,&#32; J.,&#32; Ilo-Okeke,&#32; E.,&#32; Ivannikov,&#32; V.&#32;&amp;&#32;Byrnes,&#32; T. &#32; (2022). &#32; Deterministic measurement-based imaginary time evolution. https://doi.org/0.48550/arXiv.2202.09100 ) Imaginary time evolution (ITE) ITE is a technique to find the ground state of a system where the time t is replaced by imagainary time $i\tau$. To understand this, let us consider the time-dependent Schrodinger equation for a system with Hamiltonian $H$:"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://gopal-dahale.github.io/ILearnQuantum/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Deterministic MBITE",
+      "item": "https://gopal-dahale.github.io/ILearnQuantum/posts/dmbite/dmbite/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Deterministic MBITE",
+  "name": "Deterministic MBITE",
+  "description": "Paper: ( Citation: Mao,\u0026#32;Chaudhary \u0026amp; al.,\u0026#32;2022 Mao,\u0026#32; Y.,\u0026#32; Chaudhary,\u0026#32; M.,\u0026#32; Kondappan,\u0026#32; M.,\u0026#32; Shi,\u0026#32; J.,\u0026#32; Ilo-Okeke,\u0026#32; E.,\u0026#32; Ivannikov,\u0026#32; V.\u0026#32;\u0026amp;\u0026#32;Byrnes,\u0026#32; T. \u0026#32; (2022). \u0026#32; Deterministic measurement-based imaginary time evolution. https://doi.org/0.48550/arXiv.2202.09100 ) Imaginary time evolution (ITE) ITE is a technique to find the ground state of a system where the time t is replaced by imagainary time $i\\tau$. To understand this, let us consider the time-dependent Schrodinger equation for a system with Hamiltonian $H$:",
+  "keywords": [
+    "QOSF"
+  ],
+  "articleBody": "Paper: ( Citation: Mao, Chaudhary \u0026 al., 2022 Mao, Y., Chaudhary, M., Kondappan, M., Shi, J., Ilo-Okeke, E., Ivannikov, V. \u0026 Byrnes, T. (2022). Deterministic measurement-based imaginary time evolution. https://doi.org/0.48550/arXiv.2202.09100 ) Imaginary time evolution (ITE) ITE is a technique to find the ground state of a system where the time t is replaced by imagainary time $i\\tau$. To understand this, let us consider the time-dependent Schrodinger equation for a system with Hamiltonian $H$:\n$$ \\begin{equation} i\\frac{\\partial}{\\partial t} \\ket{\\psi(t)}= H \\ket{\\psi(t)} \\end{equation} $$\nwhere $ \\ket{\\psi(t)} $ is is the state of the system at time $t$, and $H$ is the Hamiltonian of the system. In the case of real time evolutoin, the state of the system at time $t$ is given by $ \\ket{\\psi(t)} = e^{-iHt}\\ket{\\psi(0)}$ where $\\ket{\\psi(0)}$ is the initial state of the system.\nIn the case of imaginary time evolution, the modified Schrodinger equation is given by:\n$$ \\frac{\\partial}{\\partial \\tau}\\ket{\\psi(\\tau)} = -H\\ket{\\psi(\\tau)} $$\nThe solution to this equation is given by $ \\ket{\\psi(\\tau)} = e^{-H\\tau}\\ket{\\psi(\\tau)} $,\nThis transfomration makes it easier to find the ground state of the system. As $\\tau \\rightarrow \\infty$, the state of the system converges to the ground state of the system. $$ \\begin{equation} \\lim_{\\tau \\rightarrow \\infty} \\ket{\\psi(\\tau)} = \\ket{E_0} \\end{equation} $$ where $\\vert E_0\\rangle$ is the ground state of $H$.\nTheory Measurement operators The strategy is to construct measurement operators which take the form of the exponentiated hamiltonian in equation 2. This can be achieved by performing a weak measurement of $H$. Consider a n-qubit system with an ancilla qubit a which will be used for the weak measurement via the hamiltonian of $H \\otimes Y$. The ancilla qubit is initially prepared in state $\\ket{+}$. Performing time evolution for $\\epsilon$ time we have:\n$$ \\begin{align*} e^{-i \\epsilon H \\otimes Y} \\ket{\\psi(0)} \\ket{+}_a =\u0026 \\sum_n \\bra{E_n}\\ket{\\psi_0} \\ket{E_n} e^{-i \\epsilon E_n Y} \\ket{+}_a \\\\ =\u0026 \\frac{1}{\\sqrt{2}}\\sum_n \\bra{E_n}\\ket{\\psi_0} \\ket{E_n} \\Bigl[ (\\cos E_n \\epsilon - \\sin E_n \\epsilon)\\ket{0}_a \\\\ \u0026 (\\cos E_n \\epsilon + \\sin E_n \\epsilon)\\ket{1}_a \\Bigr] \\end{align*} $$\nUsing the projector operator $\\ket{0}\\bra{0}$ on the ancilla qubit, we get\n$$ \\begin{equation} \\frac{1}{\\sqrt{2}}\\sum_n \\bra{E_n}\\ket{\\psi_0} (\\cos E_n \\epsilon - \\sin E_n \\epsilon)\\ket{E_n}\\ket{0}_a \\approx \\frac{e^{-\\epsilon H}}{\\sqrt{2}} \\ket{\\psi_0}\\ket{0} \\end{equation} $$\nwhile $\\ket{1}\\bra{1}$ gives\n$$ \\begin{equation} \\frac{1}{\\sqrt{2}}\\sum_n \\bra{E_n}\\ket{\\psi_0} (\\cos E_n \\epsilon + \\sin E_n \\epsilon)\\ket{E_n}\\ket{1}_a \\approx \\frac{e^{\\epsilon H}}{\\sqrt{2}} \\ket{\\psi_0}\\ket{0} \\end{equation} $$\nSo the measurement operators are\n$$ \\begin{align} M_0 =\u0026 \\frac{1}{\\sqrt{2}}\\sum_n (\\cos E_n \\epsilon - \\sin E_n \\epsilon)\\ket{E_n}\\bra{E_n} \\approx \\frac{e^{-\\epsilon H}}{\\sqrt{2}} \\\\ M_1 =\u0026 \\frac{1}{\\sqrt{2}}\\sum_n (\\cos E_n \\epsilon + \\sin E_n \\epsilon)\\ket{E_n}\\bra{E_n} \\approx \\frac{e^{\\epsilon H}}{\\sqrt{2}} \\end{align} $$\nWe can see that the above two equations takes the form of the exponentiated operator in equation 2. The exponential approximation is valid when $||\\epsilon H|| \\ll 1$.\nAmplification of ground state Upon measurement of the ancilla qubit we get can a 0 or 1. Consider a particular measurement sequence where there are $k_0$ counts of 0 (i.e. $M_0$ is the measurement operator) and $k_1$ counts of 1 (i.e. $M_1$ is the measurement operator. Since $[M_0, M_1] = 0$, the order of outcomes does not matter and therefore we can write\n$$ \\begin{equation} M_0^{k_0}M_1^{k_1} = \\sum_nA_{k_0k_1}(\\epsilon E_n) \\bra{E_n}\\ket{\\psi_0}\\ket{E_n} \\end{equation} $$\nwhere the amplitude function is defined as\n$$ \\begin{equation} A_{k_0k_1} = \\frac{(\\cos x - \\sin x)^{k0}(\\cos x - \\sin x)^{k_1}}{\\sqrt{2^{k_0 + k_1}}} \\end{equation} $$\nThe amplitude function takes a gaussian form for large number of measurements in the range $-\\pi/4 \\leq x \\leq \\pi/4$ and the peak occurs at\n$$ \\begin{equation} x_{k_0k_1}^{max} = \\frac{1}{2}\\arcsin \\left( \\frac{k_0 - k_1}{k_0 + k_1} \\right) \\end{equation} $$\nFor large measurements a collapse of energy basis occurs and the ground state energy can be estimated from $x_{k_0k_1}^{max} \\approx \\epsilon E_0$, we can approximate the equation \\ref{eq:seq} to $e^{-\\epsilon(k_0 - k_1)H}$ from the exponential approximation of the equations \\ref{eq:m0} and \\ref{eq:m1}. From the figure we can see that this exponential approximates only one side of the gaussian and therefore for random outcomes of $k_0, k_1$, the sequence may not result in amplification of ground state. If the gaussian peak are to the left of ground state, the measurements sequence will produce the desired value of $A_{k_0k_1}$ which will enhance the ground state. To be precise, if $x_{k_0k_1}^{max} \u003c \\epsilon (E_0 + E_1)/2$ for any outcome of measurement, then it will have an amplifying effect towards the ground state.\nMethodology The strategy is the adjust the peak position of the gaussian near the ground state. The idea is to apply unitary operations conditioned on the measuremnet outcomes. Using a energy threshold $E_{th}$, if the peak is below the threshold then no operation is applied otherwise a corrective unitary is applied. This is peformed iteratively:\n$$ \\begin{equation} \\ket{\\psi_{t+1}} = \\frac{U_{k_0^{(t+1)}k_1^{(t+1)}}M_n\\ket{\\psi_t}}{\\sqrt{\\bra{{\\psi_t}}|{M_n^{\\dag}M_n}\\ket{\\psi_t}}} \\end{equation} $$\nwhere $n\\in {0,1}$ and\n$$ \\begin{equation} U_{k_0k_1} = \\begin{cases} I \u0026\\quad\\text{if} ~ x_{k_0k_1}^{max} \u003c \\epsilon E_{th} \\\\ U_c \u0026\\quad\\text{otherwise.} \\ \\end{cases} \\end{equation} $$\nand $$ \\begin{equation} k_m^{(t+1)} = \\begin{cases} k_m^{(t)} + \\delta_{mn} \u0026\\quad\\text{if} ~ x_{(k_0^{(t)} + \\delta_{0n})(k_0^{(t)} + \\delta_{1n})}^{max} \u003c \\epsilon E_{th} \\\\ 0 \u0026\\quad\\text{otherwise.} \\ \\end{cases} \\end{equation} $$\nFor ensuring the convergence over iterations to the ground state, $|\\bra{E_n}U_c\\ket{E_m}| \u003e 0, \\forall n,m$ which can be satisfied with a random unitary matrix. The authors considered random intial states and corrective unitary, however a sophisticated choice of initial state and corrective unitary can be made to improve the convergence rate. The code explains the examples shown in the paper in detail.\nMao, Chaudhary, Kondappan, Shi, Ilo-Okeke, Ivannikov \u0026 Byrnes (2022) Mao, Y., Chaudhary, M., Kondappan, M., Shi, J., Ilo-Okeke, E., Ivannikov, V. \u0026 Byrnes, T. (2022). Deterministic measurement-based imaginary time evolution. https://doi.org/0.48550/arXiv.2202.09100 ",
+  "wordCount" : "909",
+  "inLanguage": "en",
+  "datePublished": "2023-06-18T00:00:00Z",
+  "dateModified": "2023-06-18T00:00:00Z",
+  "author":[{
+    "@type": "Person",
+    "name": "Gopal Ramesh Dahale"
+  }, {
+    "@type": "Person",
+    "name": "Radoica Draškić"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://gopal-dahale.github.io/ILearnQuantum/posts/dmbite/dmbite/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ILearnQuantum",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gopal-dahale.github.io/ILearnQuantum/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://gopal-dahale.github.io/ILearnQuantum/" accesskey="h" title="ILearnQuantum (Alt + H)">ILearnQuantum</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://gopal-dahale.github.io/ILearnQuantum/">Home</a>&nbsp;»&nbsp;<a href="https://gopal-dahale.github.io/ILearnQuantum/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Deterministic MBITE
+    </h1>
+    <div class="post-meta"><span title='2023-06-18 00:00:00 +0000 UTC'>June 18, 2023</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Gopal Ramesh Dahale, Radoica Draškić
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#imaginary-time-evolution-ite" aria-label="Imaginary time evolution (ITE)">Imaginary time evolution (ITE)</a></li>
+                <li>
+                    <a href="#theory" aria-label="Theory">Theory</a><ul>
+                        
+                <li>
+                    <a href="#measurement-operators" aria-label="Measurement operators">Measurement operators</a></li>
+                <li>
+                    <a href="#amplification-of-ground-state" aria-label="Amplification of ground state">Amplification of ground state</a></li></ul>
+                </li>
+                <li>
+                    <a href="#methodology" aria-label="Methodology">Methodology</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Paper: 
+ 
+ 
+ 
+ 
+ <span class="hugo-cite-intext"
+         itemprop="citation">(<span class="hugo-cite-group">
+ 
+           <a href="#dmbite"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Yuping"><span itemprop="familyName">Mao</span></span>,&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Manish"><span itemprop="familyName">Chaudhary</span></span>
+                   <em>&amp; al.</em>,&#32;<span itemprop="datePublished">2022</span></a><span class="hugo-cite-citation"> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <span itemscope
+       itemtype="https://schema.org/CreativeWork"
+       data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Mao</span>,&#32;
+     <meta itemprop="givenName" content="Yuping" />
+     Y.</span>,&#32;
+   <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Chaudhary</span>,&#32;
+     <meta itemprop="givenName" content="Manish" />
+     M.</span>,&#32;
+   <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Kondappan</span>,&#32;
+     <meta itemprop="givenName" content="Manikandan" />
+     M.</span>,&#32;
+   <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Shi</span>,&#32;
+     <meta itemprop="givenName" content="Junheng" />
+     J.</span>,&#32;
+   <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Ilo-Okeke</span>,&#32;
+     <meta itemprop="givenName" content="Ebubechukwu O." />
+     E.</span>,&#32;
+   <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Ivannikov</span>,&#32;
+     <meta itemprop="givenName" content="Valentin" />
+     V.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Byrnes</span>,&#32;
+     <meta itemprop="givenName" content="Tim" />
+     T.</span>
+   &#32;
+     (<span itemprop="datePublished">2022</span>).
+   &#32;<span itemprop="name">
+     <i>Deterministic measurement-based imaginary time evolution</i></span>.
+   
+   <a href="https://doi.org/0.48550/arXiv.2202.09100"
+      itemprop="identifier"
+      itemtype="https://schema.org/URL">https://doi.org/0.48550/arXiv.2202.09100</a></span>
+ 
+ </span></span>)</span>
+</p>
+<h2 id="imaginary-time-evolution-ite">Imaginary time evolution (ITE)<a hidden class="anchor" aria-hidden="true" href="#imaginary-time-evolution-ite">#</a></h2>
+<p>ITE is a technique to find the ground state of a system where the time t is replaced by imagainary time $i\tau$. To understand this, let us consider the time-dependent Schrodinger equation for a system with Hamiltonian $H$:</p>
+<p>$$
+\begin{equation}
+i\frac{\partial}{\partial t} \ket{\psi(t)}= H \ket{\psi(t)}
+\end{equation}
+$$</p>
+<p>where $ \ket{\psi(t)} $ is is the state of the system at time $t$, and $H$ is the Hamiltonian of the system. In the case of real time evolutoin, the state of the system at time $t$ is given by $ \ket{\psi(t)} = e^{-iHt}\ket{\psi(0)}$ where $\ket{\psi(0)}$ is the initial state of the system.</p>
+<p>In the case of imaginary time evolution, the modified Schrodinger equation is given by:</p>
+<p>$$ \frac{\partial}{\partial \tau}\ket{\psi(\tau)} = -H\ket{\psi(\tau)} $$</p>
+<p>The solution to this equation is given by $ \ket{\psi(\tau)} = e^{-H\tau}\ket{\psi(\tau)} $,</p>
+<p>This transfomration makes it easier to find the ground state of the system. As $\tau \rightarrow \infty$, the state of the system converges to the ground state of the system.
+$$
+\begin{equation}
+\lim_{\tau \rightarrow \infty} \ket{\psi(\tau)} = \ket{E_0}
+\end{equation}
+$$
+where $\vert E_0\rangle$ is the ground state of $H$.</p>
+<h2 id="theory">Theory<a hidden class="anchor" aria-hidden="true" href="#theory">#</a></h2>
+<h3 id="measurement-operators">Measurement operators<a hidden class="anchor" aria-hidden="true" href="#measurement-operators">#</a></h3>
+<p>The strategy is to construct measurement operators which take the form of the exponentiated hamiltonian in equation 2. This can be achieved by performing a weak measurement of $H$. Consider a n-qubit system with an ancilla qubit a which will be used for the weak measurement via the hamiltonian of $H \otimes Y$. The ancilla qubit is initially prepared in state $\ket{+}$. Performing time evolution for $\epsilon$ time we have:</p>
+<p>$$
+\begin{align*}
+e^{-i \epsilon H \otimes Y} \ket{\psi(0)} \ket{+}_a =&amp; \sum_n \bra{E_n}\ket{\psi_0} \ket{E_n} e^{-i \epsilon E_n Y} \ket{+}_a \\
+=&amp; \frac{1}{\sqrt{2}}\sum_n \bra{E_n}\ket{\psi_0} \ket{E_n} \Bigl[ (\cos E_n \epsilon - \sin E_n \epsilon)\ket{0}_a \\
+&amp; (\cos E_n \epsilon + \sin E_n \epsilon)\ket{1}_a \Bigr]
+\end{align*}
+$$</p>
+<p>Using the projector operator $\ket{0}\bra{0}$ on the ancilla qubit, we get</p>
+<p>$$
+\begin{equation}
+\frac{1}{\sqrt{2}}\sum_n \bra{E_n}\ket{\psi_0} (\cos E_n \epsilon - \sin E_n \epsilon)\ket{E_n}\ket{0}_a \approx \frac{e^{-\epsilon H}}{\sqrt{2}} \ket{\psi_0}\ket{0}
+\end{equation}
+$$</p>
+<p>while $\ket{1}\bra{1}$ gives</p>
+<p>$$
+\begin{equation}
+\frac{1}{\sqrt{2}}\sum_n \bra{E_n}\ket{\psi_0} (\cos E_n \epsilon + \sin E_n \epsilon)\ket{E_n}\ket{1}_a \approx \frac{e^{\epsilon H}}{\sqrt{2}} \ket{\psi_0}\ket{0}
+\end{equation}
+$$</p>
+<p>So the measurement operators are</p>
+<p>$$
+\begin{align}
+M_0 =&amp; \frac{1}{\sqrt{2}}\sum_n (\cos E_n \epsilon - \sin E_n \epsilon)\ket{E_n}\bra{E_n} \approx \frac{e^{-\epsilon H}}{\sqrt{2}} \\
+M_1 =&amp; \frac{1}{\sqrt{2}}\sum_n (\cos E_n \epsilon + \sin E_n \epsilon)\ket{E_n}\bra{E_n} \approx \frac{e^{\epsilon H}}{\sqrt{2}}
+\end{align}
+$$</p>
+<p>We can see that the above two equations takes the form of the exponentiated operator in equation 2. The exponential approximation is valid when $||\epsilon H|| \ll 1$.</p>
+<h3 id="amplification-of-ground-state">Amplification of ground state<a hidden class="anchor" aria-hidden="true" href="#amplification-of-ground-state">#</a></h3>
+<p>Upon measurement of the ancilla qubit we get can a 0 or 1. Consider a particular measurement sequence where there are $k_0$ counts of 0 (i.e. $M_0$ is the measurement operator) and $k_1$ counts of 1 (i.e. $M_1$ is the measurement operator. Since $[M_0, M_1] = 0$, the order of outcomes does not matter and therefore we can write</p>
+<p>$$
+\begin{equation}
+M_0^{k_0}M_1^{k_1} = \sum_nA_{k_0k_1}(\epsilon E_n) \bra{E_n}\ket{\psi_0}\ket{E_n}
+\end{equation}
+$$</p>
+<p>where the amplitude function is defined as</p>
+<p>$$
+\begin{equation}
+A_{k_0k_1} = \frac{(\cos x - \sin x)^{k0}(\cos x - \sin x)^{k_1}}{\sqrt{2^{k_0 + k_1}}}
+\end{equation}
+$$</p>
+<p>The amplitude function takes a gaussian form for large number of measurements in the range $-\pi/4 \leq x \leq \pi/4$ and the peak occurs at</p>
+<p>$$
+\begin{equation}
+x_{k_0k_1}^{max} = \frac{1}{2}\arcsin \left( \frac{k_0 - k_1}{k_0 + k_1} \right)
+\end{equation}
+$$</p>
+<p>For large measurements a collapse of energy basis occurs and the ground state energy can be estimated from $x_{k_0k_1}^{max} \approx \epsilon E_0$, we can approximate the equation \ref{eq:seq} to $e^{-\epsilon(k_0 - k_1)H}$ from the exponential approximation of the equations \ref{eq:m0} and \ref{eq:m1}. From the figure we can see that this exponential approximates only one side of the gaussian and therefore for random outcomes of $k_0, k_1$, the sequence may not result in amplification of ground state.
+If the gaussian peak are to the left of ground state, the measurements sequence will produce the desired value of $A_{k_0k_1}$ which will enhance the ground state. To be precise, if $x_{k_0k_1}^{max} &lt; \epsilon (E_0 + E_1)/2$ for any outcome of measurement, then it will have an amplifying effect towards the ground state.</p>
+<h2 id="methodology">Methodology<a hidden class="anchor" aria-hidden="true" href="#methodology">#</a></h2>
+<p>The strategy is the adjust the peak position of the gaussian near the ground state. The idea is to apply unitary operations conditioned on the measuremnet outcomes. Using a energy threshold $E_{th}$, if the peak is below the threshold then no operation is applied otherwise a corrective unitary is applied. This is peformed iteratively:</p>
+<p>$$
+\begin{equation}
+\ket{\psi_{t+1}} = \frac{U_{k_0^{(t+1)}k_1^{(t+1)}}M_n\ket{\psi_t}}{\sqrt{\bra{{\psi_t}}|{M_n^{\dag}M_n}\ket{\psi_t}}}
+\end{equation}
+$$</p>
+<p>where $n\in {0,1}$ and</p>
+<p>$$
+\begin{equation}
+U_{k_0k_1} =
+\begin{cases}
+I &amp;\quad\text{if} ~ x_{k_0k_1}^{max} &lt; \epsilon E_{th} \\
+U_c &amp;\quad\text{otherwise.} \
+\end{cases}
+\end{equation}
+$$</p>
+<p>and
+$$
+\begin{equation}
+k_m^{(t+1)} =
+\begin{cases}
+k_m^{(t)} + \delta_{mn} &amp;\quad\text{if} ~ x_{(k_0^{(t)} + \delta_{0n})(k_0^{(t)}  + \delta_{1n})}^{max} &lt; \epsilon E_{th} \\
+0 &amp;\quad\text{otherwise.} \
+\end{cases}
+\end{equation}
+$$</p>
+<p>For ensuring the convergence over iterations to the ground state, $|\bra{E_n}U_c\ket{E_m}| &gt; 0, \forall n,m$ which can be satisfied with a random unitary matrix. The authors considered random intial states and corrective unitary, however a sophisticated choice of initial state and corrective unitary can be made to improve the convergence rate. The code explains the examples shown in the paper in detail.</p>
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<section class="hugo-cite-bibliography">
+  <dl>
+    
+
+      <div id="dmbite">
+        <dt>
+          Mao,&#32;
+          Chaudhary,&#32;
+          Kondappan,&#32;
+          Shi,&#32;
+          Ilo-Okeke,&#32;
+          Ivannikov&#32;&amp;&#32;Byrnes
+
+          
+          (2022)</dt>
+
+        <dd>
+          
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Mao</span>,&#32;
+    <meta itemprop="givenName" content="Yuping" />
+    Y.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Chaudhary</span>,&#32;
+    <meta itemprop="givenName" content="Manish" />
+    M.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Kondappan</span>,&#32;
+    <meta itemprop="givenName" content="Manikandan" />
+    M.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Shi</span>,&#32;
+    <meta itemprop="givenName" content="Junheng" />
+    J.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Ilo-Okeke</span>,&#32;
+    <meta itemprop="givenName" content="Ebubechukwu O." />
+    E.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Ivannikov</span>,&#32;
+    <meta itemprop="givenName" content="Valentin" />
+    V.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Byrnes</span>,&#32;
+    <meta itemprop="givenName" content="Tim" />
+    T.</span>
+  &#32;
+    (<span itemprop="datePublished">2022</span>).
+  &#32;<span itemprop="name">
+    <i>Deterministic measurement-based imaginary time evolution</i></span>.
+  
+  <a href="https://doi.org/0.48550/arXiv.2202.09100"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://doi.org/0.48550/arXiv.2202.09100</a></span>
+
+</dd>
+
+      </div>
+  </dl>
+</section>
+
+
+
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://gopal-dahale.github.io/ILearnQuantum/tags/qosf/">QOSF</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://gopal-dahale.github.io/ILearnQuantum/">ILearnQuantum</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
