@@ -1,0 +1,148 @@
+baseURL: "https://gopal-dahale.github.io/"
+title: "ILearnQuantum"
+paginate: 5
+theme:
+- "PaperMod"
+- "hugo-cite"
+enableInlineShortcodes: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+pygmentsUseClasses: true
+googleAnalytics: "G-9MSJDZKGWH"
+minify:
+    disableXML: true
+    # minifyOutput: true
+languages:
+    en:
+        languageName: "English"
+        weight: 1
+        taxonomies:
+          category: categories
+          tag: tags
+        menu:
+            main:
+                - name: Search
+                  url: search/
+                  weight: 10
+                - name: Tags
+                  url: tags/
+                  weight: 10
+                - name: Categories
+                  url: categories/
+                  weight: 10
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON
+params:
+    env: production
+    description: "Gopal Ramesh Dahale - content related to Quantum Computing and Machine Learning"
+    author: "Gopal Ramesh Dahale"
+    defaultTheme: auto
+    # disableThemeToggle: true
+    ShowShareButtons: false
+    ShowReadingTime: true
+    # disableSpecial1stPost: true
+    displayFullLangName: true
+    ShowPostNavLinks: false
+    ShowBreadCrumbs: true
+    ShowCodeCopyButtons: true
+    ShowRssButtonInSectionTermList: true
+    ShowToc: true
+    math: true
+    comments: true
+    #images: ["papermod-cover.png"]
+    homeInfoParams:
+        Title: "Greetings!"
+        Content: >
+            Hi there! I am Gopal, a Quantum Computing and Machine Learning enthusiast with experience in related research areas.
+            I am currently looking to collaborate with like-minded individuals to advance the field and learn new things.
+
+            This is my online notebook 📔 where I write about stuff related to my research.
+    socialIcons:
+        - name: email
+          url: "mailto:dahalegopal27@gmail.com"
+        - name: github
+          url: "https://github.com/Gopal-Dahale"
+        - name: linkedin
+          url: "https://www.linkedin.com/in/gopald27/"
+        - name: twitter
+          url: "https://twitter.com/gopald27"
+        - name: medium
+          url: "https://dahalegopal27.medium.com/"
+        - name: cv
+          url: "https://gopal-dahale.github.io/Resume/"
+
+    #editPost:
+    #    URL: "https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content"
+    #    Text: "Suggest Changes" # edit text
+    #    appendFilePath: true # to append file path to Edit link
+
+    # label:
+    #     text: "Home"
+    #     icon: icon.png
+    #     iconHeight: 35
+
+    # analytics:
+    #     google:
+    #         SiteVerificationTag: "XYZabc"
+
+    # assets:
+    #     favicon: "<link / abs url>"
+    #     favicon16x16: "<link / abs url>"
+    #     favicon32x32: "<link / abs url>"
+    #     apple_touch_icon: "<link / abs url>"
+    #     safari_pinned_tab: "<link / abs url>"
+
+    # cover:
+    #     hidden: true # hide everywhere but not in structured data
+    #     hiddenInList: true # hide on list pages and home
+    #     hiddenInSingle: true # hide on single page
+
+    # fuseOpts:
+    #     isCaseSensitive: false
+    #     shouldSort: true
+    #     location: 0
+    #     distance: 1000
+    #     threshold: 0.4
+    #     minMatchCharLength: 0
+    #     keys: ["title", "permalink", "summary", "content"]
+
+markup:
+    goldmark:
+        renderer:
+            unsafe: true
+    highlight:
+        noClasses: false
+        # anchorLineNos: true
+        # codeFences: true
+        # guessSyntax: true
+        # lineNos: true
+        # style: monokai
+
+privacy:
+    vimeo:
+        disabled: false
+        simple: true
+    twitter:
+        disabled: false
+        enableDNT: true
+        simple: true
+
+    instagram:
+        disabled: false
+        simple: true
+
+    youtube:
+        disabled: false
+        privacyEnhanced: true
+
+services:
+    instagram:
+        disableInlineCSS: true
+    twitter:
+        disableInlineCSS: true
