@@ -2,8 +2,8 @@ baseURL: "https://gopal-dahale.github.io/ILearnQuantum/"
 title: "ILearnQuantum"
 paginate: 5
 theme:
-- "PaperMod"
-- "hugo-cite"
+- PaperMod
+- hugo-cite
 enableInlineShortcodes: true
 enableRobotsTXT: true
 buildDrafts: false

@@ -139,4 +139,6 @@ $$
 
 For ensuring the convergence over iterations to the ground state, $|\bra{E_n}U_c\ket{E_m}| > 0, \forall n,m$ which can be satisfied with a random unitary matrix. The authors considered random intial states and corrective unitary, however a sophisticated choice of initial state and corrective unitary can be made to improve the convergence rate. The code explains the examples shown in the paper in detail.
 
+## References
+
 {{< bibliography cited >}}
