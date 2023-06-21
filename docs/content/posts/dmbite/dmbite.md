@@ -1,10 +1,10 @@
 ---
-title: "Deterministic MBITE"
+title: "Deterministic Measurement-based imaginary time evolution"
 date: 2023-06-18
 tags: ["QOSF"]
 author: ["Gopal Ramesh Dahale", "Radoica Draškić"]
 ShowToc: true
-bibFile: /content/posts/dmbite/bib.json
+bibFile: /content/bib.json
 categories: []
 math: true
 ---
