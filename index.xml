@@ -7,6 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 18 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://gopal-dahale.github.io/ILearnQuantum/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Brasard-Høyer-Tapp Algorithm</title>
+      <link>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht/</link>
+      <pubDate>Sun, 18 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht/</guid>
+      <description>BHT </description>
+    </item>
+    
+    <item>
       <title>Deterministic Measurement-based imaginary time evolution</title>
       <link>https://gopal-dahale.github.io/ILearnQuantum/posts/dmbite/dmbite/</link>
       <pubDate>Sun, 18 Jun 2023 00:00:00 +0000</pubDate>
