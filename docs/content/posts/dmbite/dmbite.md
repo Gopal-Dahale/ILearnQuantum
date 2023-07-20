@@ -4,7 +4,7 @@ date: 2023-06-18
 tags: ["QOSF"]
 author: ["Gopal Ramesh Dahale", "Radoica Draškić"]
 ShowToc: true
-bibFile: /content/bib.json
+bibFile: /content/posts/dmbite/bib.json
 categories: []
 math: true
 ---
