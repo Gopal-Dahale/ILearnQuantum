@@ -1,0 +1,105 @@
+[
+	{
+		"id": "bht",
+		"author": [
+			{
+				"family": "Brassard",
+				"given": "Gilles"
+			},
+			{
+				"family": "Hoyer",
+				"given": "Peter"
+			},
+			{
+				"family": "Tapp",
+				"given": "Alain"
+			}
+		],
+
+		"year": "1997",
+		"month": "06",
+		"pages": "",
+		"title": "Quantum Algorithm for the Collision Problem",
+		"volume": "28",
+		"isbn": "978-3-642-27848-8",
+		"journal": "ACM SIGACT News (Cryptology Column)",
+		"doi": "10.1145/261342.261346"
+	},
+	{
+		"id": "grover",
+		"title" : "A fast quantum mechanical algorithm for database search",
+		"author" : [
+			{
+				"family": "Grover",
+				"given": "Lov K."
+			}
+		],
+		"booktitle" : "Symposium on the Theory of Computing",
+		"year" : "1996"
+	},
+	{
+		"id": "collision",
+		"year": "2020",
+		"month": "05",
+		"pages": "249-279",
+		"title": "Finding Hash Collisions with Quantum Computers by Using Differential Trails with Smaller Probability than Birthday Bound",
+		"isbn": "978-3-030-45723-5",
+		"doi": "10.1007/978-3-030-45724-2_9",
+		"author": [
+			{
+				"family": "Hosoyamada",
+				"given": "Akinori"
+			},
+			{
+				"family": "Sasaki",
+				"given": "Yu"
+			}
+		]
+	},
+	{
+		"id": "zhandry",
+		"year": "2013",
+		"month": "12",
+		"pages": "",
+		"title": "A Note on the Quantum Collision and Set Equality Problems",
+		"volume": "15",
+		"journal": "Quantum Information and Computation",
+		"doi": "10.26421/QIC15.7-8-2",
+		"author": [
+			{
+				"family": "Zhandry",
+				"given": "Mark"
+			}
+		]
+	},
+	{
+		"id": "bernstein",
+		"year": "2009",
+		"month": "01",
+		"pages": "",
+		"title": "Cost analysis of hash collisions: Will quantum computers make SHARCS obsolete",
+		"author": [
+			{
+				"family": "Bernstein",
+				"given": "Daniel"
+			}
+		]
+	},
+	{
+		"id": "prho",
+		"year": "1994",
+		"booktitle": "Conference on Computer and Communications Security",
+		"title": "Parallel collision search with application to hash functions and discrete logarithms",
+		"author": [
+			{
+				"family": "Oorschot",
+				"given": "Paul C. van"
+			},
+			{
+				"family": "Wiener",
+				"given": "Michael J."
+			}
+		]
+	}
+
+]
