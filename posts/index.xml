@@ -5,14 +5,15 @@
     <link>https://gopal-dahale.github.io/ILearnQuantum/posts/</link>
     <description>Recent content in Posts on ILearnQuantum</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 18 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://gopal-dahale.github.io/ILearnQuantum/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 21 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://gopal-dahale.github.io/ILearnQuantum/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Brasard-Høyer-Tapp Algorithm</title>
-      <link>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht/</link>
-      <pubDate>Sun, 18 Jun 2023 00:00:00 +0000</pubDate>
+      <title>Quantum Collision Finding</title>
+      <link>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/quantum_collision_finding/</link>
+      <pubDate>Fri, 21 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht/</guid>
-      <description>BHT </description>
+      <guid>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/quantum_collision_finding/</guid>
+      <description>A Womanium Global Media Project Initiative.
+Collisions in hash functions A collision in a hash function is when two different inputs produce the same output hash. This is a problem because it violates the fundamental premise of a hash function, which is to produce a unique output for each unique input. Collisions can be exploited by attackers to create fraudulent transactions or gain unauthorized access to secure systems, making them a critical concern in the design and implementation of hash functions.</description>
     </item>
     
     <item>

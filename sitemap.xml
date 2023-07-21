@@ -2,28 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht/</loc>
-    <lastmod>2023-06-18T00:00:00+00:00</lastmod>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/categories/</loc>
+    <lastmod>2023-07-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/</loc>
+    <lastmod>2023-07-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/posts/</loc>
+    <lastmod>2023-07-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/quantum_collision_finding/</loc>
+    <lastmod>2023-07-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/categories/quantum-cryptanalysis/</loc>
+    <lastmod>2023-07-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/tags/</loc>
+    <lastmod>2023-07-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/tags/womanium/</loc>
+    <lastmod>2023-07-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://gopal-dahale.github.io/ILearnQuantum/posts/dmbite/dmbite/</loc>
     <lastmod>2023-06-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://gopal-dahale.github.io/ILearnQuantum/</loc>
-    <lastmod>2023-06-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://gopal-dahale.github.io/ILearnQuantum/posts/</loc>
-    <lastmod>2023-06-18T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://gopal-dahale.github.io/ILearnQuantum/tags/qosf/</loc>
     <lastmod>2023-06-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://gopal-dahale.github.io/ILearnQuantum/tags/</loc>
-    <lastmod>2023-06-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://gopal-dahale.github.io/ILearnQuantum/tags/womanium/</loc>
-    <lastmod>2023-06-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://gopal-dahale.github.io/ILearnQuantum/categories/</loc>
   </url><url>
     <loc>https://gopal-dahale.github.io/ILearnQuantum/search/</loc>
   </url>

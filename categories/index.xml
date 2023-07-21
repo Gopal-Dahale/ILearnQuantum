@@ -4,6 +4,16 @@
     <title>Categories on ILearnQuantum</title>
     <link>https://gopal-dahale.github.io/ILearnQuantum/categories/</link>
     <description>Recent content in Categories on ILearnQuantum</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="https://gopal-dahale.github.io/ILearnQuantum/categories/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 21 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://gopal-dahale.github.io/ILearnQuantum/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Quantum Cryptanalysis</title>
+      <link>https://gopal-dahale.github.io/ILearnQuantum/categories/quantum-cryptanalysis/</link>
+      <pubDate>Fri, 21 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://gopal-dahale.github.io/ILearnQuantum/categories/quantum-cryptanalysis/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
