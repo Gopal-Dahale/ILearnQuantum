@@ -57,7 +57,7 @@ The algorithm consists of 2 steps
 
 1. Calculate $x_1 = \textbf{Grover}(H, 1)$ where $H : X \rightarrow \{0, 1\}$ denotes the function defined by $H(x) = 1$ iff there exists $x_0 \in K$ such that $(x_0 , F (x)) \in L$ but $x \not = x_0$. (It's worth noting that if such $x_0$ exists, it is unique, as we have already verified the absence of collisions in $L$).
 2. Search $(x_0 , F (x_1 )) \in L$.
-3. Output the collision set $\{x_0 , x_1 \}$.
+3. Output the collision set $\\{x_0 , x_1 \\}$.
 
 ## Collision Complexity
 
