@@ -7,6 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Fri, 21 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://gopal-dahale.github.io/ILearnQuantum/tags/womanium/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Brassard-Høyer-Tapp Algorithm in Qiskit</title>
+      <link>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht_qiskit/</link>
+      <pubDate>Fri, 21 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht_qiskit/</guid>
+      <description>A Womanium Global Media Project Initiative
+Overview Previously, we discussed the theoritical aspects of Quantum Collision Finding and the BHT algorithm. We now try to implement in the BHT algorithm using Qiskit for small functions. We&amp;rsquo;ll create a class for this and explain it step-by-step. First let&amp;rsquo;s import essential packages.
+import numpy as np from qiskit import QuantumCircuit from qiskit.primitives import Sampler from qiskit.tools.visualization import plot_histogram from qiskit.algorithms.algorithm_result import AlgorithmResult from qiskit.</description>
+    </item>
+    
+    <item>
       <title>Quantum Collision Finding</title>
       <link>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/quantum_collision_finding/</link>
       <pubDate>Fri, 21 Jul 2023 00:00:00 +0000</pubDate>

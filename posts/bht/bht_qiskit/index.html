@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Brassard-Høyer-Tapp Algorithm in Qiskit | ILearnQuantum</title>
+<meta name="keywords" content="Womanium">
+<meta name="description" content="A Womanium Global Media Project Initiative
+Overview Previously, we discussed the theoritical aspects of Quantum Collision Finding and the BHT algorithm. We now try to implement in the BHT algorithm using Qiskit for small functions. We&rsquo;ll create a class for this and explain it step-by-step. First let&rsquo;s import essential packages.
+import numpy as np from qiskit import QuantumCircuit from qiskit.primitives import Sampler from qiskit.tools.visualization import plot_histogram from qiskit.algorithms.algorithm_result import AlgorithmResult from qiskit.">
+<meta name="author" content="Gopal Ramesh Dahale">
+<link rel="canonical" href="https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht_qiskit/">
+<link crossorigin="anonymous" href="/ILearnQuantum/assets/css/stylesheet.4fd967528ad5a75f3ce961dbda94c03a4739e156197539fdac72973ab0f932e0.css" integrity="sha256-T9lnUorVp1886WHb2pTAOkc54VYZdTn9rHKXOrD5MuA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/ILearnQuantum/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://gopal-dahale.github.io/ILearnQuantum/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://gopal-dahale.github.io/ILearnQuantum/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://gopal-dahale.github.io/ILearnQuantum/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://gopal-dahale.github.io/ILearnQuantum/apple-touch-icon.png">
+<link rel="mask-icon" href="https://gopal-dahale.github.io/ILearnQuantum/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+onload="renderMathInElement(document.body,
+        {
+              delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false},
+              ],
+              throwOnError : false
+          });"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="/ILearnQuantum/hugo-cite.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D59RMHDF7Y"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-D59RMHDF7Y', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="Brassard-Høyer-Tapp Algorithm in Qiskit" />
+<meta property="og:description" content="A Womanium Global Media Project Initiative
+Overview Previously, we discussed the theoritical aspects of Quantum Collision Finding and the BHT algorithm. We now try to implement in the BHT algorithm using Qiskit for small functions. We&rsquo;ll create a class for this and explain it step-by-step. First let&rsquo;s import essential packages.
+import numpy as np from qiskit import QuantumCircuit from qiskit.primitives import Sampler from qiskit.tools.visualization import plot_histogram from qiskit.algorithms.algorithm_result import AlgorithmResult from qiskit." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht_qiskit/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-21T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-07-21T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Brassard-Høyer-Tapp Algorithm in Qiskit"/>
+<meta name="twitter:description" content="A Womanium Global Media Project Initiative
+Overview Previously, we discussed the theoritical aspects of Quantum Collision Finding and the BHT algorithm. We now try to implement in the BHT algorithm using Qiskit for small functions. We&rsquo;ll create a class for this and explain it step-by-step. First let&rsquo;s import essential packages.
+import numpy as np from qiskit import QuantumCircuit from qiskit.primitives import Sampler from qiskit.tools.visualization import plot_histogram from qiskit.algorithms.algorithm_result import AlgorithmResult from qiskit."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://gopal-dahale.github.io/ILearnQuantum/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Brassard-Høyer-Tapp Algorithm in Qiskit",
+      "item": "https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht_qiskit/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Brassard-Høyer-Tapp Algorithm in Qiskit",
+  "name": "Brassard-Høyer-Tapp Algorithm in Qiskit",
+  "description": "A Womanium Global Media Project Initiative\nOverview Previously, we discussed the theoritical aspects of Quantum Collision Finding and the BHT algorithm. We now try to implement in the BHT algorithm using Qiskit for small functions. We\u0026rsquo;ll create a class for this and explain it step-by-step. First let\u0026rsquo;s import essential packages.\nimport numpy as np from qiskit import QuantumCircuit from qiskit.primitives import Sampler from qiskit.tools.visualization import plot_histogram from qiskit.algorithms.algorithm_result import AlgorithmResult from qiskit.",
+  "keywords": [
+    "Womanium"
+  ],
+  "articleBody": "A Womanium Global Media Project Initiative\nOverview Previously, we discussed the theoritical aspects of Quantum Collision Finding and the BHT algorithm. We now try to implement in the BHT algorithm using Qiskit for small functions. We’ll create a class for this and explain it step-by-step. First let’s import essential packages.\nimport numpy as np from qiskit import QuantumCircuit from qiskit.primitives import Sampler from qiskit.tools.visualization import plot_histogram from qiskit.algorithms.algorithm_result import AlgorithmResult from qiskit.providers.ibmq import IBMQ from qiskit.providers.aer import AerSimulator from qiskit_ibm_runtime import QiskitRuntimeService, Session, Options from qiskit_ibm_runtime import Sampler as RuntimeSampler from qiskit_aer.noise import NoiseModel from qiskit.algorithms.algorithm_result import AlgorithmResult seed = 42 np.random.seed(seed) Implementation The BHT class below implements the BHT algorithm. The class takes a Qiskit Sampler object sampler, the n-bit hash function fn and the input size n. Most of the algorithm is present in the solve function of the class.\nclass BHT: def __init__(self, sampler, fn, n): \"\"\" Initialize the BHT algorithm class Args: sampler (Sampler): Qiskit's Sampler Object fn (np.ndarray): Function whose collisions we want to find represented by a numpy array. n (int): Maximum length of a input/output \"\"\" self.n = n self.fn = fn self.N = 2**n # Total number of inputs (Domain) self.sampler = sampler def _search(self, x, F_x): \"\"\" Check whether there exists x_0 ∈ K so that (x_0, F(x)) ∈ L but x != x_0. Since L is sorted by hashes we use binary search on L. Args: x (int): Input x y (int): Value of the function evaluated at x Returns: index (int): Returns the index of x_0 if found, else -1 \"\"\" low = 0 high = self.k - 1 while low \u003c= high: mid = (low + high) // 2 x0 = self.L[mid][0] if (F_x == self.L[mid][1]) and (x != x0): return x0 elif self.L[mid][1] \u003c F_x: low = mid + 1 else: high = mid - 1 return -1 def _H_mat(self): \"\"\" Creates a unitary matrix for H: X -\u003e {0, 1} Returns: qc (Gate): Gate representing the H matrix \"\"\" size = 2**self.n # Since |X| = n, we need n+1 qubits U = np.zeros((size, size)) # Initialize the matrix for x in range(size): y = self.fn[x] # Compute the function of x x0 = self._search(x, y) if x0 == -1: U[x][x] = 1 else: U[x][x] = -1 # Phase flip if such x0 exists qc = QuantumCircuit(self.n) qc.unitary(U, range(self.n)) oracle = qc.to_gate() oracle.name = 'U$_\\omega$' return oracle def _diffuser(self, nqubits): \"\"\" Diffuser for Grover's algorithm Returns: U_s (Gate): Diffuser circuit. \"\"\" qc = QuantumCircuit(nqubits) for qubit in range(nqubits): qc.h(qubit) for qubit in range(nqubits): qc.x(qubit) qc.h(nqubits - 1) qc.mct(list(range(nqubits - 1)), nqubits - 1) # multi-controlled-toffoli qc.h(nqubits - 1) for qubit in range(nqubits): qc.x(qubit) for qubit in range(nqubits): qc.h(qubit) U_s = qc.to_gate() U_s.name = \"U$_s$\" return U_s def construct_circuit(self): \"\"\" Construction of the Grover's circuit. Returns: qc (QuantumCircuit): Grover's circuit. \"\"\" qc = QuantumCircuit(self.n, self.n) qc.h(range(self.n)) qc.barrier() oracle = self._H_mat() # Oracle H of Grover(H,1) self.num_iterations = int(np.sqrt(self.N / self.k)) for i in range(self.num_iterations): qc.append(oracle, range(self.n)) qc.append(self._diffuser(self.n), range(self.n)) qc.barrier() qc.measure(range(self.n), range(self.n)) return qc def find_collisions(self, x): \"\"\" Finds collisions from the result of Grover's circuit execution. Returns: collisions (List[tuple]): A list of three element tuple (a, b, c) such that fn[a] = f[b] = c. \"\"\" collisions = [] for i in x: y = self.fn[i] x0 = self._search(i, y) if x0 != -1: collisions.append((x0, i, y)) return collisions def solve(self): \"\"\" Performs the BHT algorithm. Returns: collisions (List[tuple]): A list of three element tuple (a, b, c) such that fn[a] = f[b] = c. \"\"\" X = range(self.N) # Domain of function # Step 1.1: # Start by selecting an arbitrary subset K ⊆ X of cardinality k = 2^(n/3). self.k = int(np.ceil(np.cbrt(self.N))) K = np.random.choice(X, self.k, replace=False) # Create a table L where each item in L holds a unique pair # (x, F(x)) with x ∈ K self.L = [(i, self.fn[i]) for i in K] # Step 1.2: Sort L according to the second entry in each item of L. self.L.sort(key=lambda x: x[1]) # Step 1.3: # Verify whether L contains any collisions, meaning check if there # are distinct elements (x_0, F(x_0)), (x_1, F(x_1)) ∈ L # such that F(x_0) = F(x_1). collisions = [] result = AlgorithmResult() flag = False for i in range(1, self.k): if self.L[i - 1][1] == self.L[i][1]: # Hashes are equal print(\"Collision Found\") collisions.append( (self.L[i - 1][0], self.L[i][0], self.L[i][1])) flag = True break if flag == True: # If so, proceed to Step 2.3: # Output the collision set {x_0, x_1}. result.collisions = collisions result.classical = True return result # If not, the 2^(n/3) pairs of L are stored in qRAM. # Construct the circuit for the Grover's algorithm qc = self.construct_circuit() # Step 2.1: Calculate x1 = Grover(H, 1) # Note that since multiple collisions exists # x1 denotes one such solution # but after executing the circuit we can get # more than one x1. job = self.sampler.run(qc) res = job.result() quasi_dist = res.quasi_dists[0] probs = quasi_dist.binary_probabilities() probs = dict(sorted(probs.items(), reverse=True, key=lambda i: i[1])) prob_keys = list(probs.keys()) x = [int(i, 2) for i in prob_keys] # Step 2.2: Search (x0, F(x1)) ∈ L collisions = self.find_collisions(x) # Step 2.3: Output the collision set {x_0, x_1} result.iterations = self.num_iterations result.probs = probs result.circuit = qc result.collisions = collisions result.classical = False return result We also define a solve_classical function which classically compute the collisions for the given function fn.\ndef solve_classical(fn): \"\"\" Classically computes the collisions in the function `fn`. Args: fn (np.ndarray): Function whose collisions we want to find represented by a numpy array. Returns: collisions (List[tuple]): A list of three element tuple (a, b, c) such that fn[a] = f[b] = c. \"\"\" unique_elements, inverse, counts = np.unique(fn, return_inverse=True, return_counts=True) duplicate_indices = np.where(counts \u003e 1)[0] collisions = [] for idx in duplicate_indices: indices = np.where(inverse == idx)[0] for i, j in zip(indices[:-1], indices[1:]): collisions.append((i, j, unique_elements[idx])) return collisions Ideal Simulation We now test the BHT algorithm with a 5-bit function i.e. n = 5.\nn = 5 # Maximum length of a input/output N = 2**n # Total number of inputs (Domain) X = range(N) # Domain of hash function # Function func = np.array([np.random.randint(low=0, high=N) for i in X]) func array([ 6, 19, 28, 14, 10, 7, 28, 20, 6, 25, 18, 22, 10, 10, 23, 20, 3, 7, 23, 2, 21, 20, 1, 23, 11, 29, 5, 1, 31, 27, 20, 0]) First we try to find the collisions classically.\ncollisions = solve_classical(func) collisions [(22, 27, 1), (0, 8, 6), (5, 17, 7), (4, 12, 10), (12, 13, 10), (7, 15, 20), (15, 21, 20), (21, 30, 20), (14, 18, 23), (18, 23, 23), (2, 6, 28)] Now we use the BHT algorithm to find collisions in the function.\nnp.random.seed(seed) sampler = Sampler() bht = BHT(sampler, func, n) result = bht.solve() # Find collisions print(result) { 'circuit': , 'classical': False, 'collisions': [(17, 5, 7), (15, 21, 20), (15, 7, 20), (15, 30, 20)], 'iterations': 2, 'probs': { '00000': 0.001953125, '00001': 0.001953125, '00010': 0.001953125, '00011': 0.001953125, '00100': 0.001953125, '00101': 0.2363281249999989, '00110': 0.001953125, '00111': 0.2363281249999988, '01000': 0.001953125, '01001': 0.001953125, '01010': 0.001953125, '01011': 0.001953125, '01100': 0.001953125, '01101': 0.001953125, '01110': 0.001953125, '01111': 0.001953125, '10000': 0.001953125, '10001': 0.001953125, '10010': 0.001953125, '10011': 0.001953125, '10100': 0.001953125, '10101': 0.2363281249999989, '10110': 0.001953125, '10111': 0.001953125, '11000': 0.001953125, '11001': 0.001953125, '11010': 0.001953125, '11011': 0.001953125, '11100': 0.001953125, '11101': 0.001953125, '11110': 0.2363281249999988, '11111': 0.001953125}} We can see that the algorithm halted successfully and below is the quantum circuit used for finding the collisions. We can see that it uses 2 iterations of the Grover’s algorithm.\nresult.circuit.draw('mpl') From the histogram, we can see that there are 4 collisions.\nplot_histogram(result.probs, figsize=(20, 8)) result.collisions [(17, 5, 7), (15, 21, 20), (15, 7, 20), (15, 30, 20)] Hurray! We can observe that the collisions found by the BHT algorithm are also present in the classical solutions.\nNoisy Simulation Now we test the algorithm with a noisy simulator. The noisy simulator is based on the ibmq_manila device.\nservice = QiskitRuntimeService(channel=\"ibm_quantum\") backend = service.backend(\"ibmq_qasm_simulator\") provider = IBMQ.load_account() real_backend = provider.get_backend('ibmq_manila') backend_sim = AerSimulator.from_backend(real_backend) noise_model = NoiseModel.from_backend(backend_sim) # Set options to include the noise model options = Options() options.simulator = { \"noise_model\": noise_model, \"basis_gates\": backend.configuration().basis_gates, \"coupling_map\": backend.configuration().coupling_map, \"seed_simulator\": seed } # Set number of shots, optimization_level and resilience_level options.execution.shots = 1000 options.optimization_level = 0 options.resilience_level = 0 np.random.seed(seed) with Session(backend=backend, max_time=\"1h\"): rt_sampler = RuntimeSampler(backend=backend, options=options) bht = BHT(rt_sampler, func, n) noisy_result = bht.solve() print(noisy_result) { 'circuit': , 'classical': False, 'collisions': [(15, 21, 20), (15, 30, 20), (17, 5, 7), (15, 7, 20)], 'iterations': 2, 'probs': { '00000': 0.003, '00001': 0.014, '00010': 0.002, '00011': 0.009, '00100': 0.019, '00101': 0.195, '00110': 0.013, '00111': 0.187, '01000': 0.003, '01010': 0.001, '01011': 0.002, '01100': 0.003, '01101': 0.006, '01110': 0.011, '01111': 0.003, '10000': 0.003, '10001': 0.021, '10010': 0.002, '10011': 0.002, '10100': 0.019, '10101': 0.21, '10110': 0.011, '10111': 0.009, '11000': 0.003, '11001': 0.002, '11010': 0.02, '11011': 0.001, '11100': 0.013, '11101': 0.004, '11110': 0.204, '11111': 0.005}} plot_histogram([result.probs, noisy_result.probs], legend=['ideal', 'noisy'], figsize=(20, 8)) noisy_result.collisions [(15, 21, 20), (15, 30, 20), (17, 5, 7), (15, 7, 20)] From the histogram, we can observe that the counts for the 4 collisions are slightly decreased but still prominent and the collisions found by the BHT algorithm are still present in the classical solutions.\n",
+  "wordCount" : "1544",
+  "inLanguage": "en",
+  "datePublished": "2023-07-21T00:00:00Z",
+  "dateModified": "2023-07-21T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Gopal Ramesh Dahale"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht_qiskit/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ILearnQuantum",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gopal-dahale.github.io/ILearnQuantum/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://gopal-dahale.github.io/ILearnQuantum/" accesskey="h" title="ILearnQuantum (Alt + H)">ILearnQuantum</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://gopal-dahale.github.io/ILearnQuantum/">Home</a>&nbsp;»&nbsp;<a href="https://gopal-dahale.github.io/ILearnQuantum/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Brassard-Høyer-Tapp Algorithm in Qiskit
+    </h1>
+    <div class="post-meta"><span title='2023-07-21 00:00:00 +0000 UTC'>July 21, 2023</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;Gopal Ramesh Dahale
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#overview" aria-label="Overview">Overview</a></li>
+                <li>
+                    <a href="#implementation" aria-label="Implementation">Implementation</a></li>
+                <li>
+                    <a href="#ideal-simulation" aria-label="Ideal Simulation">Ideal Simulation</a></li>
+                <li>
+                    <a href="#noisy-simulation" aria-label="Noisy Simulation">Noisy Simulation</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>A Womanium Global Media Project Initiative</p>
+<h2 id="overview">Overview<a hidden class="anchor" aria-hidden="true" href="#overview">#</a></h2>
+<p><a href="https://gopal-dahale.github.io/ILearnQuantum/posts/bht/quantum_collision_finding/" target='_blank'>Previously</a>, we discussed the theoritical aspects of Quantum Collision Finding and the BHT algorithm. We now try to implement in the BHT algorithm using Qiskit for small functions. We&rsquo;ll create a class for this and explain it step-by-step. First let&rsquo;s import essential packages.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">qiskit</span> <span class="kn">import</span> <span class="n">QuantumCircuit</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">qiskit.primitives</span> <span class="kn">import</span> <span class="n">Sampler</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">qiskit.tools.visualization</span> <span class="kn">import</span> <span class="n">plot_histogram</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">qiskit.algorithms.algorithm_result</span> <span class="kn">import</span> <span class="n">AlgorithmResult</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">qiskit.providers.ibmq</span> <span class="kn">import</span> <span class="n">IBMQ</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">qiskit.providers.aer</span> <span class="kn">import</span> <span class="n">AerSimulator</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">qiskit_ibm_runtime</span> <span class="kn">import</span> <span class="n">QiskitRuntimeService</span><span class="p">,</span> <span class="n">Session</span><span class="p">,</span> <span class="n">Options</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">qiskit_ibm_runtime</span> <span class="kn">import</span> <span class="n">Sampler</span> <span class="k">as</span> <span class="n">RuntimeSampler</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">qiskit_aer.noise</span> <span class="kn">import</span> <span class="n">NoiseModel</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">qiskit.algorithms.algorithm_result</span> <span class="kn">import</span> <span class="n">AlgorithmResult</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">seed</span> <span class="o">=</span> <span class="mi">42</span>
+</span></span><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="implementation">Implementation<a hidden class="anchor" aria-hidden="true" href="#implementation">#</a></h2>
+<p>The <code>BHT</code> class below implements the BHT algorithm. The class takes a Qiskit Sampler object <code>sampler</code>, the n-bit hash function <code>fn</code> and the input size <code>n</code>. Most of the algorithm is present in the <code>solve</code> function of the class.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BHT</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sampler</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Initialize the BHT algorithm class
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            sampler (Sampler): Qiskit&#39;s Sampler Object
+</span></span></span><span class="line"><span class="cl"><span class="s2">            fn (np.ndarray): Function whose collisions we want to find
+</span></span></span><span class="line"><span class="cl"><span class="s2">            represented by a numpy array.
+</span></span></span><span class="line"><span class="cl"><span class="s2">            n (int): Maximum length of a input/output
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span> <span class="o">=</span> <span class="n">fn</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="n">n</span>  <span class="c1"># Total number of inputs (Domain)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">sampler</span> <span class="o">=</span> <span class="n">sampler</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">F_x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Check whether there exists x_0 ∈ K so that (x_0, F(x)) ∈ L but x  != x_0.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Since L is sorted by hashes we use binary search on L.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            x (int): Input x
+</span></span></span><span class="line"><span class="cl"><span class="s2">            y (int): Value of the function evaluated at x
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            index (int): Returns the index of x_0 if found, else -1
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">low</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="n">high</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">low</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">low</span> <span class="o">+</span> <span class="n">high</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">            <span class="n">x0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">[</span><span class="n">mid</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">F_x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">[</span><span class="n">mid</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">x0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">x0</span>
+</span></span><span class="line"><span class="cl">            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">[</span><span class="n">mid</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">F_x</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">high</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">_H_mat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Creates a unitary matrix for H: X -&gt; {0, 1}
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            qc (Gate): Gate representing the H matrix
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">size</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span>  <span class="c1"># Since |X| = n, we need n+1 qubits</span>
+</span></span><span class="line"><span class="cl">        <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>  <span class="c1"># Initialize the matrix</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>  <span class="c1"># Compute the function of x</span>
+</span></span><span class="line"><span class="cl">            <span class="n">x0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">x0</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">U</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">U</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># Phase flip if such x0 exists</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qc</span><span class="o">.</span><span class="n">unitary</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">oracle</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">to_gate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">oracle</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;U$_\omega$&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">oracle</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">_diffuser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nqubits</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Diffuser for Grover&#39;s algorithm
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            U_s (Gate): Diffuser circuit.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="n">nqubits</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nqubits</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nqubits</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">nqubits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qc</span><span class="o">.</span><span class="n">mct</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nqubits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">               <span class="n">nqubits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># multi-controlled-toffoli</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">nqubits</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nqubits</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">qc</span><span class="o">.</span><span class="n">x</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">qubit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nqubits</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">qubit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">U_s</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">to_gate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">U_s</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;U$_s$&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">U_s</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">construct_circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Construction of the Grover&#39;s circuit.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            qc (QuantumCircuit): Grover&#39;s circuit.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">qc</span> <span class="o">=</span> <span class="n">QuantumCircuit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qc</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">oracle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_H_mat</span><span class="p">()</span>  <span class="c1"># Oracle H of Grover(H,1)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">num_iterations</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_iterations</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">qc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">oracle</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">qc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_diffuser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">qc</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">qc</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">qc</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">find_collisions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Finds collisions from the result of Grover&#39;s circuit execution.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            collisions (List[tuple]): A list of three element tuple (a, b, c)
+</span></span></span><span class="line"><span class="cl"><span class="s2">            such that fn[a] = f[b] = c.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">collisions</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="n">x0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">x0</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">collisions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">collisions</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Performs the BHT algorithm.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            collisions (List[tuple]): A list of three element tuple (a, b, c)
+</span></span></span><span class="line"><span class="cl"><span class="s2">            such that fn[a] = f[b] = c.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">X</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>  <span class="c1"># Domain of function</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Step 1.1:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Start by selecting an arbitrary subset K ⊆ X of cardinality k = 2^(n/3).</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cbrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Create a table L where each item in L holds a unique pair</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># (x, F(x)) with x ∈ K</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">K</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Step 1.2: Sort L according to the second entry in each item of L.</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Step 1.3:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Verify whether L contains any collisions, meaning check if there</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># are distinct elements (x_0, F(x_0)), (x_1, F(x_1)) ∈ L</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># such that F(x_0) = F(x_1).</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">collisions</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span> <span class="o">=</span> <span class="n">AlgorithmResult</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">flag</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>  <span class="c1"># Hashes are equal</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Collision Found&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">collisions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">                <span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">flag</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># If so, proceed to Step 2.3:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># Output the collision set {x_0, x_1}.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">result</span><span class="o">.</span><span class="n">collisions</span> <span class="o">=</span> <span class="n">collisions</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result</span><span class="o">.</span><span class="n">classical</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">result</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># If not, the 2^(n/3) pairs of L are stored in qRAM.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Construct the circuit for the Grover&#39;s algorithm</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">construct_circuit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Step 2.1: Calculate x1 =  Grover(H, 1)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Note that since multiple collisions exists</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># x1 denotes one such solution</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># but after executing the circuit we can get</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># more than one x1.</span>
+</span></span><span class="line"><span class="cl">        <span class="n">job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sampler</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">qc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">res</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">quasi_dist</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">quasi_dists</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">probs</span> <span class="o">=</span> <span class="n">quasi_dist</span><span class="o">.</span><span class="n">binary_probabilities</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">probs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">probs</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">prob_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">probs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prob_keys</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Step 2.2: Search (x0, F(x1)) ∈ L</span>
+</span></span><span class="line"><span class="cl">        <span class="n">collisions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_collisions</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Step 2.3: Output the collision set {x_0, x_1}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="o">.</span><span class="n">iterations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_iterations</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="o">.</span><span class="n">probs</span> <span class="o">=</span> <span class="n">probs</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="n">qc</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="o">.</span><span class="n">collisions</span> <span class="o">=</span> <span class="n">collisions</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result</span><span class="o">.</span><span class="n">classical</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">result</span>
+</span></span></code></pre></div><p>We also define a <code>solve_classical</code> function which classically compute the collisions for the given function <code>fn</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">solve_classical</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Classically computes the collisions in the function `fn`.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        fn (np.ndarray): Function whose collisions we want to find represented
+</span></span></span><span class="line"><span class="cl"><span class="s2">        by a numpy array.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        collisions (List[tuple]): A list of three element tuple (a, b, c)
+</span></span></span><span class="line"><span class="cl"><span class="s2">        such that fn[a] = f[b] = c.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">unique_elements</span><span class="p">,</span> <span class="n">inverse</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                                 <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                                 <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">duplicate_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">counts</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">collisions</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">duplicate_indices</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">inverse</span> <span class="o">==</span> <span class="n">idx</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">indices</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">indices</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">collisions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">unique_elements</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">collisions</span>
+</span></span></code></pre></div><h2 id="ideal-simulation">Ideal Simulation<a hidden class="anchor" aria-hidden="true" href="#ideal-simulation">#</a></h2>
+<p>We now test the BHT algorithm with a 5-bit function i.e. <code>n = 5</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># Maximum length of a input/output</span>
+</span></span><span class="line"><span class="cl"><span class="n">N</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="n">n</span>  <span class="c1"># Total number of inputs (Domain)</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>  <span class="c1"># Domain of hash function</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Function</span>
+</span></span><span class="line"><span class="cl"><span class="n">func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="n">N</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">func</span>
+</span></span></code></pre></div><pre><code>array([ 6, 19, 28, 14, 10,  7, 28, 20,  6, 25, 18, 22, 10, 10, 23, 20,  3,
+        7, 23,  2, 21, 20,  1, 23, 11, 29,  5,  1, 31, 27, 20,  0])
+</code></pre>
+<p>First we try to find the collisions classically.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">collisions</span> <span class="o">=</span> <span class="n">solve_classical</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">collisions</span>
+</span></span></code></pre></div><pre><code>[(22, 27, 1),
+ (0, 8, 6),
+ (5, 17, 7),
+ (4, 12, 10),
+ (12, 13, 10),
+ (7, 15, 20),
+ (15, 21, 20),
+ (21, 30, 20),
+ (14, 18, 23),
+ (18, 23, 23),
+ (2, 6, 28)]
+</code></pre>
+<p>Now we use the BHT algorithm to find collisions in the function.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sampler</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">bht</span> <span class="o">=</span> <span class="n">BHT</span><span class="p">(</span><span class="n">sampler</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">bht</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>  <span class="c1"># Find collisions</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>{   'circuit': &lt;qiskit.circuit.quantumcircuit.QuantumCircuit object at 0x7f45ca965580&gt;,
+    'classical': False,
+    'collisions': [(17, 5, 7), (15, 21, 20), (15, 7, 20), (15, 30, 20)],
+    'iterations': 2,
+    'probs': {   '00000': 0.001953125,
+                 '00001': 0.001953125,
+                 '00010': 0.001953125,
+                 '00011': 0.001953125,
+                 '00100': 0.001953125,
+                 '00101': 0.2363281249999989,
+                 '00110': 0.001953125,
+                 '00111': 0.2363281249999988,
+                 '01000': 0.001953125,
+                 '01001': 0.001953125,
+                 '01010': 0.001953125,
+                 '01011': 0.001953125,
+                 '01100': 0.001953125,
+                 '01101': 0.001953125,
+                 '01110': 0.001953125,
+                 '01111': 0.001953125,
+                 '10000': 0.001953125,
+                 '10001': 0.001953125,
+                 '10010': 0.001953125,
+                 '10011': 0.001953125,
+                 '10100': 0.001953125,
+                 '10101': 0.2363281249999989,
+                 '10110': 0.001953125,
+                 '10111': 0.001953125,
+                 '11000': 0.001953125,
+                 '11001': 0.001953125,
+                 '11010': 0.001953125,
+                 '11011': 0.001953125,
+                 '11100': 0.001953125,
+                 '11101': 0.001953125,
+                 '11110': 0.2363281249999988,
+                 '11111': 0.001953125}}
+</code></pre>
+<p>We can see that the algorithm halted successfully and below is the quantum circuit used for finding the collisions. We can see that it uses 2 iterations of the Grover&rsquo;s algorithm.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">result</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s1">&#39;mpl&#39;</span><span class="p">)</span>
+</span></span></code></pre></div><p><img loading="lazy" src="../images/output_14_0.png" alt="png"  />
+</p>
+<p>From the histogram, we can see that there are 4 collisions.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plot_histogram</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+</span></span></code></pre></div><p><img loading="lazy" src="../images/output_16_0.png" alt="png"  />
+</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">result</span><span class="o">.</span><span class="n">collisions</span>
+</span></span></code></pre></div><pre><code>[(17, 5, 7), (15, 21, 20), (15, 7, 20), (15, 30, 20)]
+</code></pre>
+<p>Hurray! We can observe that the collisions found by the BHT algorithm are also present in the classical solutions.</p>
+<h2 id="noisy-simulation">Noisy Simulation<a hidden class="anchor" aria-hidden="true" href="#noisy-simulation">#</a></h2>
+<p>Now we test the algorithm with a noisy simulator. The noisy simulator is based on the <code>ibmq_manila</code> device.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">service</span> <span class="o">=</span> <span class="n">QiskitRuntimeService</span><span class="p">(</span><span class="n">channel</span><span class="o">=</span><span class="s2">&#34;ibm_quantum&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">backend</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">backend</span><span class="p">(</span><span class="s2">&#34;ibmq_qasm_simulator&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">provider</span> <span class="o">=</span> <span class="n">IBMQ</span><span class="o">.</span><span class="n">load_account</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">real_backend</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">get_backend</span><span class="p">(</span><span class="s1">&#39;ibmq_manila&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">backend_sim</span> <span class="o">=</span> <span class="n">AerSimulator</span><span class="o">.</span><span class="n">from_backend</span><span class="p">(</span><span class="n">real_backend</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">noise_model</span> <span class="o">=</span> <span class="n">NoiseModel</span><span class="o">.</span><span class="n">from_backend</span><span class="p">(</span><span class="n">backend_sim</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set options to include the noise model</span>
+</span></span><span class="line"><span class="cl"><span class="n">options</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">options</span><span class="o">.</span><span class="n">simulator</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;noise_model&#34;</span><span class="p">:</span> <span class="n">noise_model</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;basis_gates&#34;</span><span class="p">:</span> <span class="n">backend</span><span class="o">.</span><span class="n">configuration</span><span class="p">()</span><span class="o">.</span><span class="n">basis_gates</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;coupling_map&#34;</span><span class="p">:</span> <span class="n">backend</span><span class="o">.</span><span class="n">configuration</span><span class="p">()</span><span class="o">.</span><span class="n">coupling_map</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;seed_simulator&#34;</span><span class="p">:</span> <span class="n">seed</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set number of shots, optimization_level and resilience_level</span>
+</span></span><span class="line"><span class="cl"><span class="n">options</span><span class="o">.</span><span class="n">execution</span><span class="o">.</span><span class="n">shots</span> <span class="o">=</span> <span class="mi">1000</span>
+</span></span><span class="line"><span class="cl"><span class="n">options</span><span class="o">.</span><span class="n">optimization_level</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">options</span><span class="o">.</span><span class="n">resilience_level</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">Session</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="n">max_time</span><span class="o">=</span><span class="s2">&#34;1h&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rt_sampler</span> <span class="o">=</span> <span class="n">RuntimeSampler</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">bht</span> <span class="o">=</span> <span class="n">BHT</span><span class="p">(</span><span class="n">rt_sampler</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">noisy_result</span> <span class="o">=</span> <span class="n">bht</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">noisy_result</span><span class="p">)</span>
+</span></span></code></pre></div><pre><code>{   'circuit': &lt;qiskit.circuit.quantumcircuit.QuantumCircuit object at 0x7f45c0d0f430&gt;,
+    'classical': False,
+    'collisions': [(15, 21, 20), (15, 30, 20), (17, 5, 7), (15, 7, 20)],
+    'iterations': 2,
+    'probs': {   '00000': 0.003,
+                 '00001': 0.014,
+                 '00010': 0.002,
+                 '00011': 0.009,
+                 '00100': 0.019,
+                 '00101': 0.195,
+                 '00110': 0.013,
+                 '00111': 0.187,
+                 '01000': 0.003,
+                 '01010': 0.001,
+                 '01011': 0.002,
+                 '01100': 0.003,
+                 '01101': 0.006,
+                 '01110': 0.011,
+                 '01111': 0.003,
+                 '10000': 0.003,
+                 '10001': 0.021,
+                 '10010': 0.002,
+                 '10011': 0.002,
+                 '10100': 0.019,
+                 '10101': 0.21,
+                 '10110': 0.011,
+                 '10111': 0.009,
+                 '11000': 0.003,
+                 '11001': 0.002,
+                 '11010': 0.02,
+                 '11011': 0.001,
+                 '11100': 0.013,
+                 '11101': 0.004,
+                 '11110': 0.204,
+                 '11111': 0.005}}
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">plot_histogram</span><span class="p">([</span><span class="n">result</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="n">noisy_result</span><span class="o">.</span><span class="n">probs</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">               <span class="n">legend</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ideal&#39;</span><span class="p">,</span> <span class="s1">&#39;noisy&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">               <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+</span></span></code></pre></div><p><img loading="lazy" src="../images/output_23_0.png" alt="png"  />
+</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">noisy_result</span><span class="o">.</span><span class="n">collisions</span>
+</span></span></code></pre></div><pre><code>[(15, 21, 20), (15, 30, 20), (17, 5, 7), (15, 7, 20)]
+</code></pre>
+<p>From the histogram, we can observe that the counts for the 4 collisions are slightly decreased but still prominent and the collisions found by the BHT algorithm are still present in the classical solutions.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://gopal-dahale.github.io/ILearnQuantum/tags/womanium/">Womanium</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://gopal-dahale.github.io/ILearnQuantum/">ILearnQuantum</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
