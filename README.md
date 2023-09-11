@@ -1,4 +1,3 @@
-<h1 align="center">ILearnQuantum</h1>
 <p align="center">
     <img src="docs/static/banner.png" alt="Random Quantum Circuit">
 </p>
@@ -13,12 +12,12 @@ The [paper](https://arxiv.org/abs/2006.14904) introduces the concept of layerwis
     <img height="250" src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*yTFTpuFerEN0KfIo8pTLwA.png" alt="variance of gradients">
 </p>
 <p align="center">
-    Variance of gradients of the expectation value for ZZ observable.
+    The variance of gradients of the expectation value for the ZZ observable.
 </p>
 
 <p align="center">
-    <img height="250" src="https://miro.medium.com/v2/resize:fit:4800/1*GMbHsntDj7KlrKhv3-2KKg.gif">
-    <img height="250" src="https://miro.medium.com/v2/resize:fit:4800/1*xd8Z5XwS-FERAvQWg1bF7w.gif">
+    <img height="300" src="https://github.com/Gopal-Dahale/ILearnQuantum/assets/49199003/ca49f18b-b528-408b-a4f7-5930aa4b35a3">
+    <img height="300" src="https://github.com/Gopal-Dahale/ILearnQuantum/assets/49199003/3c1cab06-55ee-4905-993b-74081763d9ea">
 </p>
 <p align="center">
     Visualising Barren Plateaus
@@ -28,27 +27,27 @@ The [paper](https://arxiv.org/abs/2006.14904) introduces the concept of layerwis
 
 [Blog][6]
 
-This article is in continuation to the previous one on [collision finding](#quantum-collision-finding) as the part of [Womanium](https://womanium.org/Quantum) Global Media Project Initiative 2023. After building on the theoretical foundations, we implemented the BHT algorithm using Qiskit for small hash functions.
+This article is in continuation to the previous one on [collision finding](#quantum-collision-finding) as part of [Womanium](https://womanium.org/Quantum) Global Media Project Initiative 2023. After building on the theoretical foundations, we implemented the BHT algorithm using Qiskit for small hash functions.
 
 <p align="center">
     <img height="250" src="docs/content/posts/bht/images/output_14_0.png" alt="bht circuit">
     <img height="250" src="docs/content/posts/bht/images/output_23_0.png" alt="output probabilities">
 </p>
 <p align="center">
-    (Left) Grover's circuit for BHT algorithm which uses 2 iterations of Grover's algorithm to find the collision in 5 bit hash function. (Right) The output probabilities of the circuit onf ideal and noisy simulator.
+    (Left) Grover's circuit for the BHT algorithm uses 2 iterations of Grover's algorithm to find the collision in a 5-bit hash function. (Right) The output probabilities of the circuit on an ideal and noisy simulator.
 </p>
 
 ## Quantum Collision Finding
 
 [Blog][5]
 
-This blog post was part of the [Womanium](https://womanium.org/Quantum) Global Media Project Initiative 2023. We introduced the concept of finding collisions in hash functions using a quantum algorithm named BHT. A theoritical description of the algorithm and its limitations is presented and is also compared to classical algorithms. The article also introduces concepts like qRAM and collision complexity in classical and quantum setting.
+This blog post was part of the [Womanium](https://womanium.org/Quantum) Global Media Project Initiative 2023. We introduced the concept of finding collisions in hash functions using a quantum algorithm named BHT. A theoretical description of the algorithm and its limitations is presented and is also compared to classical algorithms. The article also introduces concepts like qRAM and collision complexity in classical and quantum settings.
 
 <p align="center">
 <img width="500" src="docs/content/posts/bht/images/grover_animation.gif" title="Error corrected circuit for GHZ-State on 54 qubits" /><br>
 </p>
 <p align="center">
-    Amplitude of quantum states during Grover's iterations for finding collision in 5 bit hash function.
+    The amplitude of quantum states during Grover's iterations for finding a collision in a 5-bit hash function.
 </p>
 
 
@@ -58,20 +57,20 @@ This blog post was part of the [Womanium](https://womanium.org/Quantum) Global M
 
 <b>Mentor:</b> [Radoica Draškić ](https://www.linkedin.com/in/rdraskic/)
 
-Based on the [recent paper](https://arxiv.org/pdf/2202.09100.pdf), we implemented a imaginary time evolution using conditinal unitary operations. We used numpy to implement the algorithm to find the ground states of given hamiltonian. The randomness due to measurement is corrected using conditional unitary operations, making the evolution deterministic.
+Based on the [recent paper](https://arxiv.org/pdf/2202.09100.pdf), we implemented an imaginary time evolution using conditional unitary operations. We used numpy to implement the algorithm to find the ground states of a given Hamiltonian. The randomness due to measurement is corrected using conditional unitary operations, making the evolution deterministic.
 
 <p align="center">
 <img width="250" src="docs/content/posts/dmbite/images/bloch_anim.gif" title="Error corrected circuit for GHZ-State on 54 qubits" /><br>
 </p>
 <p align="center">
-    Deterministic Measurement-based imaginary time evolution with a single qubit visualized on bloch sphere for Pauli Z Hamiltonian.
+    Deterministic Measurement-based imaginary time evolution with a single qubit visualized on Bloch sphere for Pauli Z Hamiltonian.
 </p>
 
 <p align="center">
 <img width="500" src="docs/content/posts/dmbite/images/pauli_z.png" title="Error corrected circuit for GHZ-State on 54 qubits" /><br>
 </p>
 <p align="center">
-    Fidelity and x_max convergenece for Pauli Z Hamiltonian averaged over 100 samples.
+    Fidelity and x_max convergence for Pauli Z Hamiltonian averaged over 100 samples.
 </p>
 
 
@@ -115,7 +114,7 @@ In this medium article, we showcased how to use Qiskit’s circuit library to co
 ## Quantum Convolutional Neural Networks for High-Energy Physics Analysis at the LHC | GSoC 2022 @ ML4SCI
 [Medium blog][1] - [Source code](https://github.com/Gopal-Dahale/qml-hep-lhc)
 
-The goal of this study was to show the capabilities of QML especially QCNN for classifying the HEP image datasets. QCNN can be completely quantum or can be a hybrid with classical. The aim was to implement both. We used quantum variational classification instead of the final FC classical layers in the quantum setting. This provided more depth about the quantum power that can be used in the near term future.
+The goal of this study was to show the capabilities of QML especially QCNN for classifying the HEP image datasets. QCNN can be completely quantum or can be a hybrid with classical. The aim was to implement both. We used quantum variational classification instead of the final FC classical layers in the quantum setting. This provided more depth about the quantum power that can be used in the near-term future.
 
 <p align="center">
 <img width="500" src="https://github.com/Gopal-Dahale/qml-hep-lhc/assets/49199003/73c42d31-3b72-4792-9d4f-a2079ca6cc1e" title="Quark" /><br>
