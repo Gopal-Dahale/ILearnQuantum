@@ -1,3 +1,4 @@
+<h1 align="center">ILearnQuantum</h1>
 <p align="center">
     <img src="docs/static/banner.png" alt="Random Quantum Circuit">
 </p>
