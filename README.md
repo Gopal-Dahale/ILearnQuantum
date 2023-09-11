@@ -5,7 +5,24 @@
 
 ## Layerwise learning for Quantum Neural Networks with Qiskit and PyTorch
 
+[Blog][7]  - [Source code](https://github.com/Gopal-Dahale/ILearnQuantum/tree/main/layerwise_learning_with_qiskit_and_pytorch)
+
 The [paper](https://arxiv.org/abs/2006.14904) introduces the concept of layerwise learning to train quantum circuits step-by-step by gradually adding layers and training only a subset of parameters. In this article, we implemented the layerwise learning algorithm using Qiskit and PyTorch. We also talked about barren plateaus and the effectiveness of layerwise learning to overcome them.
+
+<p align="center">
+    <img height="250" src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*yTFTpuFerEN0KfIo8pTLwA.png" alt="variance of gradients">
+</p>
+<p align="center">
+    Variance of gradients of the expectation value for ZZ observable.
+</p>
+
+<p align="center">
+    <img height="250" src="https://miro.medium.com/v2/resize:fit:4800/1*GMbHsntDj7KlrKhv3-2KKg.gif">
+    <img height="250" src="https://miro.medium.com/v2/resize:fit:4800/1*xd8Z5XwS-FERAvQWg1bF7w.gif">
+</p>
+<p align="center">
+    Visualising Barren Plateaus
+</p>
 
 ## Brassard-Høyer-Tapp Algorithm in Qiskit
 
@@ -121,3 +138,4 @@ The goal of this study was to show the capabilities of QML especially QCNN for c
 [4]: https://gopal-dahale.github.io/ILearnQuantum/posts/dmbite/dmbite/
 [5]: https://gopal-dahale.github.io/ILearnQuantum/posts/bht/quantum_collision_finding/
 [6]: https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht_qiskit/
+[7]: https://medium.com/qiskit/layerwise-learning-for-quantum-neural-networks-with-qiskit-e17ff4b1c419
