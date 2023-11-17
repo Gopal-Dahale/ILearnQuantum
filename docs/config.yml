@@ -1,5 +1,6 @@
 baseURL: "https://gopal-dahale.github.io/ILearnQuantum/"
 title: "ILearnQuantum"
+disqusShortname: ilearnquantum
 paginate: 5
 theme:
 - PaperMod
