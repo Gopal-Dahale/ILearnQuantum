@@ -1,0 +1,109 @@
+[
+	{
+		"id": "qa_nn",
+		"author": [
+			{
+				"family": "Verdon",
+				"given": "Guillaume"
+			},
+			{
+				"family": "Broughton",
+				"given": "Michael"
+			},
+			{
+				"family": "Biamonte",
+				"given": "Jacob"
+			}
+		],
+		"year": "2017",
+		"month": "12",
+		"pages": "",
+		"title": "A quantum algorithm to train neural networks using low-depth circuits"
+	},
+	{
+		"id": "qaa",
+		"author": [
+			{
+				"family":"Herbert",
+				"given": "Steven"
+			}
+		],
+		"year":"2019",
+		"title": "Quantum Computing (CST Part II) Lecture 15: Adiabatic Quantum Computing",
+		"URL": "https://www.cl.cam.ac.uk/teaching/1920/QuantComp/Quantum_Computing_Lecture_15.pdf"
+	},
+	{
+		"id": "qaa_proof",
+		"author":[
+			{
+				"family": "Childs",
+				"given": "Andrew"
+			}
+		],
+		"year": "2008",
+		"title": "Quantum algorithms (CO 781, Winter 2008): LECTURE 18: The quantum adiabatic theorem",
+		"URL": "https://www.cs.umd.edu/~amchilds/teaching/w08/l18.pdf"
+	},
+	{
+		"id":"pulser_tut",
+		"author":[
+			{
+				"family": "Pasqal",
+				"given": "Pulser"
+			}
+		],
+		"title": "QAOA and QAA to solve a QUBO problem",
+		"URL": "https://pulser.readthedocs.io/en/stable/tutorials/qubo.html"
+	},
+	{
+		"id": "pulser_lib",
+		"author": [
+			{
+				"family": "Henrique",
+				"given": "Silvério"
+			},
+			{
+				"family": "Grijalva",
+				"given": "Seb"
+			},
+			{
+				"family": "Henriet",
+				"given": "Loïc"
+			},
+			{
+				"family": "Cornillot",
+				"given": "Antoine"
+			},
+			{
+				"family": "AJDNIK",
+				"given": "Laurent"
+			},
+			{
+				"family": "Karalekas",
+				"given": "Peter"
+			},
+			{
+				"family": "et al.",
+				"given": ""
+			}
+		],
+		"year": "2023",
+		"title": "pasqal-io/Pulser: Release v0.15.3",
+		"publisher": "Zenodo",
+		"URL": "https://github.com/pasqal-io/Pulser"
+	},
+	{
+		"id": "qat",
+		"author": [
+			{
+				"family":"Pesah",
+				"given":"Arthur"
+			}
+		],
+		"title": "Adiabatic Quantum Computing",
+		"URL": "https://arthurpesah.me/assets/pdf/introduction-quantum-annealing.pdf"
+	}
+
+
+
+]
