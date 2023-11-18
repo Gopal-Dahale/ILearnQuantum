@@ -2,25 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht_qiskit/</loc>
-    <lastmod>2023-07-21T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://gopal-dahale.github.io/ILearnQuantum/categories/</loc>
-    <lastmod>2023-07-21T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://gopal-dahale.github.io/ILearnQuantum/</loc>
-    <lastmod>2023-07-21T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/tags/neutral-atoms/</loc>
+    <lastmod>2023-11-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://gopal-dahale.github.io/ILearnQuantum/posts/</loc>
+    <lastmod>2023-11-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaoa/</loc>
+    <lastmod>2023-11-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/tags/</loc>
+    <lastmod>2023-11-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/categories/the-blaise-pascal-regenerative-quantum-challenge/</loc>
+    <lastmod>2023-11-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaa/</loc>
+    <lastmod>2023-11-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht_qiskit/</loc>
     <lastmod>2023-07-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/quantum_collision_finding/</loc>
     <lastmod>2023-07-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://gopal-dahale.github.io/ILearnQuantum/categories/quantum-cryptanalysis/</loc>
-    <lastmod>2023-07-21T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://gopal-dahale.github.io/ILearnQuantum/tags/</loc>
     <lastmod>2023-07-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://gopal-dahale.github.io/ILearnQuantum/tags/womanium/</loc>

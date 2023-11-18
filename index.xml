@@ -5,7 +5,26 @@
     <link>https://gopal-dahale.github.io/ILearnQuantum/</link>
     <description>Recent content on ILearnQuantum</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 21 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://gopal-dahale.github.io/ILearnQuantum/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://gopal-dahale.github.io/ILearnQuantum/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>QAOA to solve MIS</title>
+      <link>https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaoa/</link>
+      <pubDate>Sat, 18 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaoa/</guid>
+      <description>In the last blog, we talked about the Quantum Adiabatic Algorithm (QAA) and used it solve the MIS problem. Here, we will discuss the Quantum Approximation Optimization Algorithm (QAOA) which is popular algorithm in the gate based quantum computing. We will use QAOA to solve the same MIS problem that we tackled in the last blog.
+Algorithm description In QAOA, we start with an eigenstate of the mixer hamiltonian. We then exponentiate and parameterize in $p$ steps by $p$ betas and gammas:</description>
+    </item>
+    
+    <item>
+      <title>Maximum Independent Set with Quantum Adiabatic Algorithm</title>
+      <link>https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaa/</link>
+      <pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaa/</guid>
+      <description>Recently, I participated in the The Blaise Pascal [re]Generative Quantum Challenge by Pasqal and got to learn about Pasqal&amp;rsquo;s neutral atom arrays and pulse-level programming as well as implementing quantum algorithms on an analog device. Here, I will share my learnings and in this blog particularly, we will solve the MIS problem with the quantum adiabatic algorithm using Pulser ( Citation: Henrique,&amp;#32;Grijalva &amp;amp; al.,&amp;#32; Henrique,&amp;#32; S.,&amp;#32; Grijalva,&amp;#32; S.,&amp;#32; Henriet,&amp;#32; L.,&amp;#32; Cornillot,&amp;#32; A.</description>
+    </item>
+    
     <item>
       <title>Brassard-Høyer-Tapp Algorithm in Qiskit</title>
       <link>https://gopal-dahale.github.io/ILearnQuantum/posts/bht/bht_qiskit/</link>

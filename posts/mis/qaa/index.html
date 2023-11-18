@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Maximum Independent Set with Quantum Adiabatic Algorithm | ILearnQuantum</title>
+<meta name="keywords" content="Neutral Atoms">
+<meta name="description" content="Recently, I participated in the The Blaise Pascal [re]Generative Quantum Challenge by Pasqal and got to learn about Pasqal&rsquo;s neutral atom arrays and pulse-level programming as well as implementing quantum algorithms on an analog device. Here, I will share my learnings and in this blog particularly, we will solve the MIS problem with the quantum adiabatic algorithm using Pulser ( Citation: Henrique,&#32;Grijalva &amp; al.,&#32; Henrique,&#32; S.,&#32; Grijalva,&#32; S.,&#32; Henriet,&#32; L.,&#32; Cornillot,&#32; A.">
+<meta name="author" content="Gopal Ramesh Dahale">
+<link rel="canonical" href="https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaa/">
+<link crossorigin="anonymous" href="/ILearnQuantum/assets/css/stylesheet.4fd967528ad5a75f3ce961dbda94c03a4739e156197539fdac72973ab0f932e0.css" integrity="sha256-T9lnUorVp1886WHb2pTAOkc54VYZdTn9rHKXOrD5MuA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/ILearnQuantum/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://gopal-dahale.github.io/ILearnQuantum/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://gopal-dahale.github.io/ILearnQuantum/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://gopal-dahale.github.io/ILearnQuantum/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://gopal-dahale.github.io/ILearnQuantum/apple-touch-icon.png">
+<link rel="mask-icon" href="https://gopal-dahale.github.io/ILearnQuantum/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+onload="renderMathInElement(document.body,
+        {
+              delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false},
+              ],
+              throwOnError : false
+          });"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="/ILearnQuantum/hugo-cite.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D59RMHDF7Y"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-D59RMHDF7Y', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="Maximum Independent Set with Quantum Adiabatic Algorithm" />
+<meta property="og:description" content="Recently, I participated in the The Blaise Pascal [re]Generative Quantum Challenge by Pasqal and got to learn about Pasqal&rsquo;s neutral atom arrays and pulse-level programming as well as implementing quantum algorithms on an analog device. Here, I will share my learnings and in this blog particularly, we will solve the MIS problem with the quantum adiabatic algorithm using Pulser ( Citation: Henrique,&#32;Grijalva &amp; al.,&#32; Henrique,&#32; S.,&#32; Grijalva,&#32; S.,&#32; Henriet,&#32; L.,&#32; Cornillot,&#32; A." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaa/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-17T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-11-17T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Maximum Independent Set with Quantum Adiabatic Algorithm"/>
+<meta name="twitter:description" content="Recently, I participated in the The Blaise Pascal [re]Generative Quantum Challenge by Pasqal and got to learn about Pasqal&rsquo;s neutral atom arrays and pulse-level programming as well as implementing quantum algorithms on an analog device. Here, I will share my learnings and in this blog particularly, we will solve the MIS problem with the quantum adiabatic algorithm using Pulser ( Citation: Henrique,&#32;Grijalva &amp; al.,&#32; Henrique,&#32; S.,&#32; Grijalva,&#32; S.,&#32; Henriet,&#32; L.,&#32; Cornillot,&#32; A."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://gopal-dahale.github.io/ILearnQuantum/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Maximum Independent Set with Quantum Adiabatic Algorithm",
+      "item": "https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaa/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Maximum Independent Set with Quantum Adiabatic Algorithm",
+  "name": "Maximum Independent Set with Quantum Adiabatic Algorithm",
+  "description": "Recently, I participated in the The Blaise Pascal [re]Generative Quantum Challenge by Pasqal and got to learn about Pasqal\u0026rsquo;s neutral atom arrays and pulse-level programming as well as implementing quantum algorithms on an analog device. Here, I will share my learnings and in this blog particularly, we will solve the MIS problem with the quantum adiabatic algorithm using Pulser ( Citation: Henrique,\u0026#32;Grijalva \u0026amp; al.,\u0026#32; Henrique,\u0026#32; S.,\u0026#32; Grijalva,\u0026#32; S.,\u0026#32; Henriet,\u0026#32; L.,\u0026#32; Cornillot,\u0026#32; A.",
+  "keywords": [
+    "Neutral Atoms"
+  ],
+  "articleBody": "Recently, I participated in the The Blaise Pascal [re]Generative Quantum Challenge by Pasqal and got to learn about Pasqal’s neutral atom arrays and pulse-level programming as well as implementing quantum algorithms on an analog device. Here, I will share my learnings and in this blog particularly, we will solve the MIS problem with the quantum adiabatic algorithm using Pulser ( Citation: Henrique, Grijalva \u0026 al., Henrique, S., Grijalva, S., Henriet, L., Cornillot, A., AJDNIK, L., Karalekas, P. \u0026 et al. (n.d.). pasqal-io/Pulser: Release v0.15.3. Zenodo. Retrieved from https://github.com/pasqal-io/Pulser ) .\nMIS as QUBO An independent set (IS) of a graph is defined as a subset $S$ of nodes such that no two nodes in $S$ are adjacent. An IS is maximal if no node can be added to $S$ without violating IS. A maximum independent set (MIS) is one of maximum cardinality.\nMIS can be represented as a QUBO problem. Every node of the graph $G = (V, E)$ is assigned with a binary variable $x_i$. If the $i^{th}$ vertex is present in the MIS then we assing $x_i = 1$ otherwise $x_i = 0$. The goal is to then minimize the below cost function\n$$ C(x_1, x_2, \\dots x_N) = - \\sum_{i=1}^{N}x_i + U \\sum_{(i,j) \\in E} x_i x_j \\tag{1} $$\nwhere $N$ is the number of nodes in $G$. Selecting a node that belongs to MIS decreases the value of $C$ (first term) but since we don’t want two adjacent nodes to be in the MIS, we add a positive penalization (second term) with a penalty coefficient $U \u003e 0$.\nAnalog Quantum Computing The below expression represents the neutral atoms quantum computer globlal hamiltonian.\n$$H_Q = \\sum_{i=1}^N \\frac{\\hbar\\Omega(t)}{2} \\sigma_i^x - \\sum_{i=1}^N \\frac{\\hbar \\delta(t)}{2} \\sigma_i^z+\\sum_{j \\lt i} \\frac{C_6}{|\\textbf{r}_i-\\textbf{r}_j|^{6}}n_i n_j \\tag{2} $$\nWe have three contributions here.\nThe first contribution is controlled by the amplitude of the laser $\\Omega$ (Rabi frequency). The second term is controlled by the detuning $\\delta$ of the laser beam. The third term models the dipole-dipole interactions between pairs of atom. The combined expression of the last two terms is similar to the cost function $C$. The idea is to encode the cost function in $H_Q$ and then find the ground state of the global hamiltonian by continuous manipulation of $\\Omega(t)$ and $\\delta(t)$.\nBut what about the first term and how will we find the ground state of $H_Q$? The next section answers these questions by describing the analog quantum algorithms framework.\nAdiabatic evolution In analog quantum computing, we consider a hamiltonian of the following form:\n$$ H(t) = u(t) H_M + (1 - u(t)) H_C $$\nwhere $H_C$ is the “cost” hamiltonian which encodes the optimization task that we are trying to solve. Here it is the MIS problem. $H_M$ is the “mixer” hamiltonian which encodes the quantum mixing (eg. a uniform transverse field on qubits) and $u(t) \\in [0,1]$ is the control function.\nThe approach is to start with a hamiltonian $H_M$ whose ground state can be found easily. The system is set in the ground sate of $H_M$ at $t = 0, u(0) = 1$ and then slowly evolved, converging to the ground state of $H_C$ ($t = t_F, u(t_F) = 1$). At any time through the evolution, we will have a hamiltonian that is a linear combination of $H_M$ and $H_C$ controlled by $u(t)$.\nWe encode $H_C$ in the last two terms of $H_Q$ i.e. the problem hamiltonian and then $H_M$ will become the first term of $H_Q$ representing the mixer hamiltonian.\nQuantum Adiabatic Theorem Consider a time-varying Hamiltonian, $H(t)$, which is initially $H_M$ at $t = 0$, and subsequently $H_C$ at some later time, $t = t_F$ , then if the system is initially in the ground-state of $H_M$, and as long as the time-evolution of the Hamiltonian is sufficiently slow, the state is likely to remain in the ground-state throughout the evolution, therefore being in the ground-state of $H_C$ at $t = t_F$ ( Citation: Herbert, Herbert, S. (n.d.). Quantum Computing (CST Part II) Lecture 15: Adiabatic Quantum Computing. Retrieved from https://www.cl.cam.ac.uk/teaching/1920/QuantComp/Quantum_Computing_Lecture_15.pdf ) .\nBut how slow is sufficiently slow? Well, the proof ( Citation: Childs, Childs, A. (n.d.). Quantum algorithms (CO 781, Winter 2008): LECTURE 18: The quantum adiabatic theorem. Retrieved from https://www.cs.umd.edu/~amchilds/teaching/w08/l18.pdf ) is complex, however we will see it in pratice that if we do not give sufficient time for the evolution of $H(t)$, the probability of finding the ground state or in our case finding the MIS turns out to near zero.\nProblem Formulation We take a small graph with 7 nodes depicted below\nQuantum Adiabatic Algorithm In the beginning, we want to be in ground state of $H_M$ so $\\delta (0) = 0$. Instead of the this we take $\\Omega(0)=0, \\delta(0)\u003c0$. This will make the second term of (2) positive as $\\delta(0) \u003c 0$. The idea is to prepare the initial state of the system in the first half of the evolution. After the first half, we will have a superpostition of states that reproduces an independent set of various sizes. In the second half, we turn off $\\Omega$ and turn on the detuning $\\delta$ ending with $\\Omega(0)=0, \\delta\u003e0$. If this evolution is slow enough, we are supposed to obtain a superpostion of states that can produce a maximal independent set. This can be achieved with the following pulse\nNote the duration of pulse ($4 \\mu$s). Simulation results into the following historgram of counts.\nThe bitstring with maximum counts is 1010011 which is indeed the MIS for the given graph. The set of nodes is $\\{0, 2, 5, 6\\}$.\nEffect of time evolution on quality of MIS We test with different time durations ranging from $1 - 15 \\mu$s and observe the probability of successfully obtaining the MIS.\nAfter a certain point (~ $12 \\mu$s), we see that the success probability flattens out. This time duration is sufficiently large. A precise definition of sufficiently large can be found here ( Citation: Pesah, Pesah, A. (n.d.). Adiabatic Quantum Computing. Retrieved from https://arthurpesah.me/assets/pdf/introduction-quantum-annealing.pdf ) .\nThe code to reproduce the figures can be found here. A more general tutorial is available in the Pulser’s docs ( Citation: Pasqal, Pasqal, P. (n.d.). QAOA and QAA to solve a QUBO problem. Retrieved from https://pulser.readthedocs.io/en/stable/tutorials/qubo.html ) .\nReferences Henrique, Grijalva, Henriet, Cornillot, AJDNIK, Karalekas \u0026 et al. (n.d.) Henrique, S., Grijalva, S., Henriet, L., Cornillot, A., AJDNIK, L., Karalekas, P. \u0026 et al. (n.d.). pasqal-io/Pulser: Release v0.15.3. Zenodo. Retrieved from https://github.com/pasqal-io/Pulser Pasqal (n.d.) Pasqal, P. (n.d.). QAOA and QAA to solve a QUBO problem. Retrieved from https://pulser.readthedocs.io/en/stable/tutorials/qubo.html Herbert (n.d.) Herbert, S. (n.d.). Quantum Computing (CST Part II) Lecture 15: Adiabatic Quantum Computing. Retrieved from https://www.cl.cam.ac.uk/teaching/1920/QuantComp/Quantum_Computing_Lecture_15.pdf Childs (n.d.) Childs, A. (n.d.). Quantum algorithms (CO 781, Winter 2008): LECTURE 18: The quantum adiabatic theorem. Retrieved from https://www.cs.umd.edu/~amchilds/teaching/w08/l18.pdf Pesah (n.d.) Pesah, A. (n.d.). Adiabatic Quantum Computing. Retrieved from https://arthurpesah.me/assets/pdf/introduction-quantum-annealing.pdf ",
+  "wordCount" : "1149",
+  "inLanguage": "en",
+  "datePublished": "2023-11-17T00:00:00Z",
+  "dateModified": "2023-11-17T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Gopal Ramesh Dahale"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaa/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ILearnQuantum",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gopal-dahale.github.io/ILearnQuantum/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://gopal-dahale.github.io/ILearnQuantum/" accesskey="h" title="ILearnQuantum (Alt + H)">ILearnQuantum</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://gopal-dahale.github.io/ILearnQuantum/">Home</a>&nbsp;»&nbsp;<a href="https://gopal-dahale.github.io/ILearnQuantum/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Maximum Independent Set with Quantum Adiabatic Algorithm
+    </h1>
+    <div class="post-meta"><span title='2023-11-17 00:00:00 +0000 UTC'>November 17, 2023</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Gopal Ramesh Dahale
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#mis-as-qubo" aria-label="MIS as QUBO">MIS as QUBO</a></li>
+                <li>
+                    <a href="#analog-quantum-computing" aria-label="Analog Quantum Computing">Analog Quantum Computing</a></li>
+                <li>
+                    <a href="#adiabatic-evolution" aria-label="Adiabatic evolution">Adiabatic evolution</a><ul>
+                        
+                <li>
+                    <a href="#quantum-adiabatic-theorem" aria-label="Quantum Adiabatic Theorem">Quantum Adiabatic Theorem</a></li></ul>
+                </li>
+                <li>
+                    <a href="#problem-formulation" aria-label="Problem Formulation">Problem Formulation</a></li>
+                <li>
+                    <a href="#quantum-adiabatic-algorithm" aria-label="Quantum Adiabatic Algorithm">Quantum Adiabatic Algorithm</a><ul>
+                        
+                <li>
+                    <a href="#effect-of-time-evolution-on-quality-of-mis" aria-label="Effect of time evolution on quality of MIS">Effect of time evolution on quality of MIS</a></li></ul>
+                </li>
+                <li>
+                    <a href="#references" aria-label="References">References</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Recently, I participated in the <a href="https://www.pasqal.com/articles/the-blaise-pascal-re-generative-quantum-challenge">The Blaise Pascal [re]Generative Quantum Challenge</a> by Pasqal and got to learn about Pasqal&rsquo;s neutral atom arrays and pulse-level programming as well as implementing quantum algorithms on an analog device. Here, I will share my learnings and in this blog particularly, we will solve the MIS problem with the quantum adiabatic algorithm using Pulser 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#pulser_lib"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Silvério"><span itemprop="familyName">Henrique</span></span>,&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Seb"><span itemprop="familyName">Grijalva</span></span>
+                  <em>&amp; al.</em>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Henrique</span>,&#32;
+    <meta itemprop="givenName" content="Silvério" />
+    S.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Grijalva</span>,&#32;
+    <meta itemprop="givenName" content="Seb" />
+    S.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Henriet</span>,&#32;
+    <meta itemprop="givenName" content="Loïc" />
+    L.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Cornillot</span>,&#32;
+    <meta itemprop="givenName" content="Antoine" />
+    A.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">AJDNIK</span>,&#32;
+    <meta itemprop="givenName" content="Laurent" />
+    L.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Karalekas</span>,&#32;
+    <meta itemprop="givenName" content="Peter" />
+    P.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">et al.</span></span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>pasqal-io/Pulser: Release v0.15.3</i></span>.
+  &#32;
+  <span itemprop="publisher" itemtype="http://schema.org/Organization" itemscope="">
+    <span itemprop="name">Zenodo</span></span>.&#32;Retrieved from&#32;
+  <a href="https://github.com/pasqal-io/Pulser"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://github.com/pasqal-io/Pulser</a></span>
+
+</span></span>)</span>
+.</p>
+<h2 id="mis-as-qubo">MIS as QUBO<a hidden class="anchor" aria-hidden="true" href="#mis-as-qubo">#</a></h2>
+<p>An independent set (IS) of a graph is defined as a subset $S$ of nodes such that no two nodes in $S$ are adjacent. An IS is <strong>maximal</strong> if no node can be added to $S$ without violating IS. A <strong>maximum</strong> independent set (MIS) is one of maximum cardinality.</p>
+<p>MIS can be represented as a QUBO problem. Every node of the graph $G = (V, E)$ is assigned with a binary variable $x_i$. If the $i^{th}$ vertex is present in the MIS then we assing $x_i = 1$ otherwise $x_i = 0$. The goal is to then minimize the below cost function</p>
+<p>$$ C(x_1, x_2, \dots x_N) = - \sum_{i=1}^{N}x_i + U \sum_{(i,j) \in E} x_i x_j \tag{1} $$</p>
+<p>where $N$ is the number of nodes in $G$. Selecting a node that belongs to MIS decreases the value of $C$ (first term) but since we don&rsquo;t want two adjacent nodes to be in the MIS, we add a positive penalization (second term) with a penalty coefficient $U &gt; 0$.</p>
+<h2 id="analog-quantum-computing">Analog Quantum Computing<a hidden class="anchor" aria-hidden="true" href="#analog-quantum-computing">#</a></h2>
+<p>The below expression represents the neutral atoms quantum computer globlal hamiltonian.</p>
+<p>$$H_Q = \sum_{i=1}^N \frac{\hbar\Omega(t)}{2} \sigma_i^x - \sum_{i=1}^N \frac{\hbar \delta(t)}{2} \sigma_i^z+\sum_{j \lt i} \frac{C_6}{|\textbf{r}_i-\textbf{r}_j|^{6}}n_i n_j \tag{2} $$</p>
+<p>We have three contributions here.</p>
+<ul>
+<li>The first contribution is controlled by the amplitude of the laser $\Omega$ (Rabi frequency).</li>
+<li>The second term is controlled by the detuning $\delta$ of the laser beam.</li>
+<li>The third term models the dipole-dipole interactions between pairs of atom.</li>
+</ul>
+<p>The combined expression of the last two terms is similar to the cost function $C$. The idea is to encode the cost function in $H_Q$ and then find the ground state of the global hamiltonian by continuous manipulation of $\Omega(t)$ and $\delta(t)$.</p>
+<p>But what about the first term and how will we find the ground state of $H_Q$? The next section answers these questions by describing the analog quantum algorithms framework.</p>
+<h2 id="adiabatic-evolution">Adiabatic evolution<a hidden class="anchor" aria-hidden="true" href="#adiabatic-evolution">#</a></h2>
+<p>In analog quantum computing, we consider a hamiltonian of the following form:</p>
+<p>$$ H(t) = u(t) H_M + (1 - u(t)) H_C $$</p>
+<p>where $H_C$ is the &ldquo;cost&rdquo; hamiltonian which encodes the optimization task that we are trying to solve. Here it is the MIS problem. $H_M$ is the &ldquo;mixer&rdquo; hamiltonian which encodes the quantum mixing (eg. a uniform transverse field on qubits) and $u(t) \in [0,1]$ is the control function.</p>
+<p>The approach is to start with a hamiltonian $H_M$ whose ground state can be found easily. The system is set in the ground sate of $H_M$ at $t = 0, u(0) = 1$ and then slowly evolved, converging to the ground state of $H_C$ ($t = t_F, u(t_F) = 1$). At any time through the evolution, we will have a hamiltonian that is a linear combination of $H_M$ and $H_C$ controlled by $u(t)$.</p>
+<p>We encode $H_C$ in the last two terms of $H_Q$ i.e. the problem hamiltonian and then $H_M$ will become the first term of $H_Q$ representing the mixer hamiltonian.</p>
+<h3 id="quantum-adiabatic-theorem">Quantum Adiabatic Theorem<a hidden class="anchor" aria-hidden="true" href="#quantum-adiabatic-theorem">#</a></h3>
+<p>Consider a time-varying Hamiltonian, $H(t)$, which is initially $H_M$ at $t = 0$, and subsequently $H_C$ at some later time, $t = t_F$ , then if the system is initially in the ground-state of $H_M$, and as long as the time-evolution of the Hamiltonian is <strong>sufficiently slow</strong>, the state is likely to remain in the ground-state throughout the evolution, therefore being in the ground-state of $H_C$ at $t = t_F$ 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#qaa"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Steven"><span itemprop="familyName">Herbert</span></span>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Herbert</span>,&#32;
+    <meta itemprop="givenName" content="Steven" />
+    S.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>Quantum Computing (CST Part II) Lecture 15: Adiabatic Quantum Computing</i></span>.
+  &#32;Retrieved from&#32;
+  <a href="https://www.cl.cam.ac.uk/teaching/1920/QuantComp/Quantum_Computing_Lecture_15.pdf"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://www.cl.cam.ac.uk/teaching/1920/QuantComp/Quantum_Computing_Lecture_15.pdf</a></span>
+
+</span></span>)</span>
+.</p>
+<p>But how slow is sufficiently slow? Well, the proof 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#qaa_proof"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Andrew"><span itemprop="familyName">Childs</span></span>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Childs</span>,&#32;
+    <meta itemprop="givenName" content="Andrew" />
+    A.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>Quantum algorithms (CO 781, Winter 2008): LECTURE 18: The quantum adiabatic theorem</i></span>.
+  &#32;Retrieved from&#32;
+  <a href="https://www.cs.umd.edu/~amchilds/teaching/w08/l18.pdf"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://www.cs.umd.edu/~amchilds/teaching/w08/l18.pdf</a></span>
+
+</span></span>)</span>
+ is complex, however we will see it in pratice that if we do not give sufficient time for the evolution of $H(t)$, the probability of finding the ground state or in our case finding the MIS turns out to near zero.</p>
+<h2 id="problem-formulation">Problem Formulation<a hidden class="anchor" aria-hidden="true" href="#problem-formulation">#</a></h2>
+<p>We take a small graph with 7 nodes depicted below</p>
+<p align="center">
+  <img src="../images/example_graph.png">
+</p>
+<h2 id="quantum-adiabatic-algorithm">Quantum Adiabatic Algorithm<a hidden class="anchor" aria-hidden="true" href="#quantum-adiabatic-algorithm">#</a></h2>
+<p>In the beginning, we want to be in ground state of $H_M$ so $\delta (0) = 0$. Instead of the this we take $\Omega(0)=0, \delta(0)&lt;0$. This will make the second term of (2) positive as $\delta(0) &lt; 0$. The idea is to prepare the initial state of the system in the first half of the evolution. After the first half, we will have a superpostition of states that reproduces an independent set of various sizes. In the second half, we turn off $\Omega$ and turn on the detuning $\delta$ ending with $\Omega(0)=0, \delta&gt;0$. If this evolution is slow enough, we are supposed to obtain a superpostion of states that can produce a maximal independent set. This can be achieved with the following pulse</p>
+<p align="center">
+  <img src="../images/adiabatic_pulse.png">
+</p>
+<p>Note the duration of pulse ($4 \mu$s). Simulation results into the following historgram of counts.</p>
+<p align="center">
+  <img src="../images/qaa_hist.png">
+</p>
+<p>The bitstring with maximum counts is <code>1010011</code> which is indeed the MIS for the given graph. The set of nodes is $\{0, 2, 5, 6\}$.</p>
+<h3 id="effect-of-time-evolution-on-quality-of-mis">Effect of time evolution on quality of MIS<a hidden class="anchor" aria-hidden="true" href="#effect-of-time-evolution-on-quality-of-mis">#</a></h3>
+<p>We test with different time durations ranging from $1 - 15 \mu$s and observe the probability of successfully obtaining the MIS.</p>
+<p align="center">
+  <img src="../images/qaa_prob_sucess.png">
+</p>
+<p>After a certain point (~ $12 \mu$s), we see that the success probability flattens out. This time duration is sufficiently large. A precise definition of sufficiently large can be found here 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#qat"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Arthur"><span itemprop="familyName">Pesah</span></span>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Pesah</span>,&#32;
+    <meta itemprop="givenName" content="Arthur" />
+    A.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>Adiabatic Quantum Computing</i></span>.
+  &#32;Retrieved from&#32;
+  <a href="https://arthurpesah.me/assets/pdf/introduction-quantum-annealing.pdf"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://arthurpesah.me/assets/pdf/introduction-quantum-annealing.pdf</a></span>
+
+</span></span>)</span>
+.</p>
+<p>The code to reproduce the figures can be found <a href="https://github.com/Gopal-Dahale/ILearnQuantum/tree/main/mis_neutral_atoms">here</a>. A more general tutorial is available in the Pulser&rsquo;s docs 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#pulser_tut"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Pulser"><span itemprop="familyName">Pasqal</span></span>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Pasqal</span>,&#32;
+    <meta itemprop="givenName" content="Pulser" />
+    P.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>QAOA and QAA to solve a QUBO problem</i></span>.
+  &#32;Retrieved from&#32;
+  <a href="https://pulser.readthedocs.io/en/stable/tutorials/qubo.html"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://pulser.readthedocs.io/en/stable/tutorials/qubo.html</a></span>
+
+</span></span>)</span>
+.</p>
+<h2 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h2>
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<section class="hugo-cite-bibliography">
+  <dl>
+    
+
+      <div id="pulser_lib">
+        <dt>
+          Henrique,&#32;
+          Grijalva,&#32;
+          Henriet,&#32;
+          Cornillot,&#32;
+          AJDNIK,&#32;
+          Karalekas&#32;&amp;&#32;et al.
+
+          
+          (n.d.)</dt>
+
+        <dd>
+          
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Henrique</span>,&#32;
+    <meta itemprop="givenName" content="Silvério" />
+    S.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Grijalva</span>,&#32;
+    <meta itemprop="givenName" content="Seb" />
+    S.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Henriet</span>,&#32;
+    <meta itemprop="givenName" content="Loïc" />
+    L.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Cornillot</span>,&#32;
+    <meta itemprop="givenName" content="Antoine" />
+    A.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">AJDNIK</span>,&#32;
+    <meta itemprop="givenName" content="Laurent" />
+    L.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Karalekas</span>,&#32;
+    <meta itemprop="givenName" content="Peter" />
+    P.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">et al.</span></span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>pasqal-io/Pulser: Release v0.15.3</i></span>.
+  &#32;
+  <span itemprop="publisher" itemtype="http://schema.org/Organization" itemscope="">
+    <span itemprop="name">Zenodo</span></span>.&#32;Retrieved from&#32;
+  <a href="https://github.com/pasqal-io/Pulser"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://github.com/pasqal-io/Pulser</a></span>
+
+</dd>
+
+      </div>
+
+      <div id="pulser_tut">
+        <dt>
+          Pasqal
+
+          
+          (n.d.)</dt>
+
+        <dd>
+          
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Pasqal</span>,&#32;
+    <meta itemprop="givenName" content="Pulser" />
+    P.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>QAOA and QAA to solve a QUBO problem</i></span>.
+  &#32;Retrieved from&#32;
+  <a href="https://pulser.readthedocs.io/en/stable/tutorials/qubo.html"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://pulser.readthedocs.io/en/stable/tutorials/qubo.html</a></span>
+
+</dd>
+
+      </div>
+
+      <div id="qaa">
+        <dt>
+          Herbert
+
+          
+          (n.d.)</dt>
+
+        <dd>
+          
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Herbert</span>,&#32;
+    <meta itemprop="givenName" content="Steven" />
+    S.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>Quantum Computing (CST Part II) Lecture 15: Adiabatic Quantum Computing</i></span>.
+  &#32;Retrieved from&#32;
+  <a href="https://www.cl.cam.ac.uk/teaching/1920/QuantComp/Quantum_Computing_Lecture_15.pdf"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://www.cl.cam.ac.uk/teaching/1920/QuantComp/Quantum_Computing_Lecture_15.pdf</a></span>
+
+</dd>
+
+      </div>
+
+      <div id="qaa_proof">
+        <dt>
+          Childs
+
+          
+          (n.d.)</dt>
+
+        <dd>
+          
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Childs</span>,&#32;
+    <meta itemprop="givenName" content="Andrew" />
+    A.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>Quantum algorithms (CO 781, Winter 2008): LECTURE 18: The quantum adiabatic theorem</i></span>.
+  &#32;Retrieved from&#32;
+  <a href="https://www.cs.umd.edu/~amchilds/teaching/w08/l18.pdf"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://www.cs.umd.edu/~amchilds/teaching/w08/l18.pdf</a></span>
+
+</dd>
+
+      </div>
+
+      <div id="qat">
+        <dt>
+          Pesah
+
+          
+          (n.d.)</dt>
+
+        <dd>
+          
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Pesah</span>,&#32;
+    <meta itemprop="givenName" content="Arthur" />
+    A.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>Adiabatic Quantum Computing</i></span>.
+  &#32;Retrieved from&#32;
+  <a href="https://arthurpesah.me/assets/pdf/introduction-quantum-annealing.pdf"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://arthurpesah.me/assets/pdf/introduction-quantum-annealing.pdf</a></span>
+
+</dd>
+
+      </div>
+  </dl>
+</section>
+
+
+
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://gopal-dahale.github.io/ILearnQuantum/tags/neutral-atoms/">Neutral Atoms</a></li>
+    </ul>
+  </footer><div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ilearnquantum" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://gopal-dahale.github.io/ILearnQuantum/">ILearnQuantum</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

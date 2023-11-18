@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>QAOA to solve MIS | ILearnQuantum</title>
+<meta name="keywords" content="Neutral Atoms">
+<meta name="description" content="In the last blog, we talked about the Quantum Adiabatic Algorithm (QAA) and used it solve the MIS problem. Here, we will discuss the Quantum Approximation Optimization Algorithm (QAOA) which is popular algorithm in the gate based quantum computing. We will use QAOA to solve the same MIS problem that we tackled in the last blog.
+Algorithm description In QAOA, we start with an eigenstate of the mixer hamiltonian. We then exponentiate and parameterize in $p$ steps by $p$ betas and gammas:">
+<meta name="author" content="Gopal Ramesh Dahale">
+<link rel="canonical" href="https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaoa/">
+<link crossorigin="anonymous" href="/ILearnQuantum/assets/css/stylesheet.4fd967528ad5a75f3ce961dbda94c03a4739e156197539fdac72973ab0f932e0.css" integrity="sha256-T9lnUorVp1886WHb2pTAOkc54VYZdTn9rHKXOrD5MuA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/ILearnQuantum/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://gopal-dahale.github.io/ILearnQuantum/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://gopal-dahale.github.io/ILearnQuantum/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://gopal-dahale.github.io/ILearnQuantum/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://gopal-dahale.github.io/ILearnQuantum/apple-touch-icon.png">
+<link rel="mask-icon" href="https://gopal-dahale.github.io/ILearnQuantum/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+onload="renderMathInElement(document.body,
+        {
+              delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false},
+              ],
+              throwOnError : false
+          });"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="/ILearnQuantum/hugo-cite.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D59RMHDF7Y"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-D59RMHDF7Y', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="QAOA to solve MIS" />
+<meta property="og:description" content="In the last blog, we talked about the Quantum Adiabatic Algorithm (QAA) and used it solve the MIS problem. Here, we will discuss the Quantum Approximation Optimization Algorithm (QAOA) which is popular algorithm in the gate based quantum computing. We will use QAOA to solve the same MIS problem that we tackled in the last blog.
+Algorithm description In QAOA, we start with an eigenstate of the mixer hamiltonian. We then exponentiate and parameterize in $p$ steps by $p$ betas and gammas:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaoa/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-18T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2023-11-18T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="QAOA to solve MIS"/>
+<meta name="twitter:description" content="In the last blog, we talked about the Quantum Adiabatic Algorithm (QAA) and used it solve the MIS problem. Here, we will discuss the Quantum Approximation Optimization Algorithm (QAOA) which is popular algorithm in the gate based quantum computing. We will use QAOA to solve the same MIS problem that we tackled in the last blog.
+Algorithm description In QAOA, we start with an eigenstate of the mixer hamiltonian. We then exponentiate and parameterize in $p$ steps by $p$ betas and gammas:"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://gopal-dahale.github.io/ILearnQuantum/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "QAOA to solve MIS",
+      "item": "https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaoa/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "QAOA to solve MIS",
+  "name": "QAOA to solve MIS",
+  "description": "In the last blog, we talked about the Quantum Adiabatic Algorithm (QAA) and used it solve the MIS problem. Here, we will discuss the Quantum Approximation Optimization Algorithm (QAOA) which is popular algorithm in the gate based quantum computing. We will use QAOA to solve the same MIS problem that we tackled in the last blog.\nAlgorithm description In QAOA, we start with an eigenstate of the mixer hamiltonian. We then exponentiate and parameterize in $p$ steps by $p$ betas and gammas:",
+  "keywords": [
+    "Neutral Atoms"
+  ],
+  "articleBody": "In the last blog, we talked about the Quantum Adiabatic Algorithm (QAA) and used it solve the MIS problem. Here, we will discuss the Quantum Approximation Optimization Algorithm (QAOA) which is popular algorithm in the gate based quantum computing. We will use QAOA to solve the same MIS problem that we tackled in the last blog.\nAlgorithm description In QAOA, we start with an eigenstate of the mixer hamiltonian. We then exponentiate and parameterize in $p$ steps by $p$ betas and gammas:\n$$\\lvert \\psi(\\boldsymbol{\\beta}, \\boldsymbol{\\gamma}) \\rangle = \\underbrace{U(\\boldsymbol{\\beta}) U(\\boldsymbol{\\gamma}) \\cdots U(\\boldsymbol{\\beta}) U(\\boldsymbol{\\gamma})}_{p \\ \\text{times}} \\lvert \\psi_0 \\rangle$$\nwhere betas and gammas are to be optimized with a classical opitimizer. Here $U(\\boldsymbol{\\beta}) = e^{-i \\boldsymbol{\\beta} H_M}$ and $U(\\boldsymbol{\\gamma}) = e^{-i \\boldsymbol{\\gamma} H_C}$. Remember $H_M$ and $H_C$ are the mixer and cost hamiltonian respectively. The idea here is that instead of having a continuous evolution, we evolve with one hamiltonian at a time $H_C$ or $H_M$ and repeat it for $p$ steps.\nComparing with QAA The figure below from ( Citation: Verdon, Broughton \u0026 al., Verdon, G., Broughton, M. \u0026 Biamonte, J. (n.d.). A quantum algorithm to train neural networks using low-depth circuits. ) , shows how the control function $u(t)$ is continuous slow varying function in QAA, while in QAOA, we have discretized control function so we evolve with $H_C$ and $H_M$ alternatively.\nThe discretized control function can be written as\n$$u_i = \\frac{\\beta_i}{\\gamma_i + \\beta_i} $$\nAt the begining, $H_M$ will be dominationg, so betas will be large and gammas will be small. This way, the control function will tend to the value of 1. In the end, gammas will increase making the control funciton to zero thereby dominating $H_C$.\nImplementation We build parameterized sequences in pulser to implement the alternating hamiltonians $H_M$ and $H_C$. Remember the expression for the global hamiltonian\n$$H_Q = \\sum_{i=1}^N \\frac{\\hbar\\Omega(t)}{2} \\sigma_i^x - \\sum_{i=1}^N \\frac{\\hbar \\delta(t)}{2} \\sigma_i^z+\\sum_{j \\lt i} \\frac{C_6}{|\\textbf{r}_i-\\textbf{r}_j|^{6}}n_i n_j $$\nWe can observe that the $H_M$ is defined when the laser is turned on and detuning is turned off i.e. $\\Omega \u003e 0, \\delta = 0$. Therefore to implement a beta pulse for the mixer hamiltonian, we choose $\\Omega = 1, \\delta = 0$. In constrast, for the cost hamiltonian we choose $\\Omega = 0, \\delta = 1$. The parameters control the duration of pulses which will be optimized by the classical optimizer.\nPulses for $H_M$ and $H_C$ with random parameters for 2 alternating layers\nThe cost function which we aim to minimize remains the same that we used in QAA\n$$ C(x_1, x_2, \\dots x_N) = - \\sum_{i=1}^{N}x_i + U \\sum_{(i,j) \\in E} x_i x_j$$\nTo implement this cost for QAOA, we can represent it as follows\n$$ f(z) = -1^{T}x + Ux^{T}Ax $$\nwhere A is the adjacency matrix of the graph $G=(V,E)$, $U$ is the penalty coefficient and $x$ is a binary vector representing the nodes in the independent. We consider only the upper triangular matrix of A otherwise the cost function will count the node connections twice. We use the Nelder-Mead classical optimizer from scipy. Simulation results into the following historgram of counts.\nThe bitstring with maximum counts is 1010011 which is indeed the MIS for the given graph. The set of nodes is $\\{0, 2, 5, 6\\}$. The optimal parameters result into the following pulses.\nPulses for $H_M$ and $H_C$ with optimized parameters\nCompared to QAA, QAOA is not much effective. Although, increasing the number of layers can boost the probability of success, it comes at the cost of high depths.\nThe code to reproduce the figures can be found here. A more general tutorial is available in the Pulser’s docs ( Citation: Pasqal, Pasqal, P. (n.d.). QAOA and QAA to solve a QUBO problem. Retrieved from https://pulser.readthedocs.io/en/stable/tutorials/qubo.html ) .\nReferences Pasqal (n.d.) Pasqal, P. (n.d.). QAOA and QAA to solve a QUBO problem. Retrieved from https://pulser.readthedocs.io/en/stable/tutorials/qubo.html Verdon, Broughton \u0026 Biamonte (n.d.) Verdon, G., Broughton, M. \u0026 Biamonte, J. (n.d.). A quantum algorithm to train neural networks using low-depth circuits. ",
+  "wordCount" : "663",
+  "inLanguage": "en",
+  "datePublished": "2023-11-18T00:00:00Z",
+  "dateModified": "2023-11-18T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Gopal Ramesh Dahale"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaoa/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ILearnQuantum",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gopal-dahale.github.io/ILearnQuantum/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://gopal-dahale.github.io/ILearnQuantum/" accesskey="h" title="ILearnQuantum (Alt + H)">ILearnQuantum</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://gopal-dahale.github.io/ILearnQuantum/">Home</a>&nbsp;»&nbsp;<a href="https://gopal-dahale.github.io/ILearnQuantum/posts/">Posts</a></div>
+    <h1 class="post-title">
+      QAOA to solve MIS
+    </h1>
+    <div class="post-meta"><span title='2023-11-18 00:00:00 +0000 UTC'>November 18, 2023</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Gopal Ramesh Dahale
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#algorithm-description" aria-label="Algorithm description">Algorithm description</a></li>
+                <li>
+                    <a href="#comparing-with-qaa" aria-label="Comparing with QAA">Comparing with QAA</a></li>
+                <li>
+                    <a href="#implementation" aria-label="Implementation">Implementation</a></li>
+                <li>
+                    <a href="#references" aria-label="References">References</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>In the last blog, we talked about the Quantum Adiabatic Algorithm (QAA) and used it solve the MIS problem. Here, we will discuss the Quantum Approximation Optimization Algorithm (QAOA) which is popular algorithm in the gate based quantum computing. We will use QAOA to solve the same MIS problem that we tackled in the last blog.</p>
+<h2 id="algorithm-description">Algorithm description<a hidden class="anchor" aria-hidden="true" href="#algorithm-description">#</a></h2>
+<p>In QAOA, we start with an eigenstate of the mixer hamiltonian. We then exponentiate and parameterize in $p$ steps by $p$ betas and gammas:</p>
+<p>$$\lvert \psi(\boldsymbol{\beta}, \boldsymbol{\gamma}) \rangle = \underbrace{U(\boldsymbol{\beta}) U(\boldsymbol{\gamma}) \cdots U(\boldsymbol{\beta}) U(\boldsymbol{\gamma})}_{p \ \text{times}} \lvert \psi_0 \rangle$$</p>
+<p>where betas and gammas are to be optimized with a classical opitimizer. Here $U(\boldsymbol{\beta}) = e^{-i \boldsymbol{\beta} H_M}$ and $U(\boldsymbol{\gamma}) = e^{-i \boldsymbol{\gamma} H_C}$. Remember $H_M$ and $H_C$ are the mixer and cost hamiltonian respectively. The idea here is that instead of having a continuous evolution, we evolve with one hamiltonian at a time $H_C$ or $H_M$ and repeat it for $p$ steps.</p>
+<h2 id="comparing-with-qaa">Comparing with QAA<a hidden class="anchor" aria-hidden="true" href="#comparing-with-qaa">#</a></h2>
+<p>The figure below from 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#qa_nn"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Guillaume"><span itemprop="familyName">Verdon</span></span>,&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Michael"><span itemprop="familyName">Broughton</span></span>
+                  <em>&amp; al.</em>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Verdon</span>,&#32;
+    <meta itemprop="givenName" content="Guillaume" />
+    G.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Broughton</span>,&#32;
+    <meta itemprop="givenName" content="Michael" />
+    M.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Biamonte</span>,&#32;
+    <meta itemprop="givenName" content="Jacob" />
+    J.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>A quantum algorithm to train neural networks using low-depth circuits</i></span>.
+  </span>
+
+</span></span>)</span>
+, shows how the control function $u(t)$ is continuous slow varying function in QAA, while in QAOA, we have discretized control function so we evolve with $H_C$ and $H_M$ alternatively.</p>
+<img src="../images/qaoa_analogy.png" width=600 alt="QAOA analogy" style="margin:auto" />
+<p>The discretized control function can be written as</p>
+<p>$$u_i = \frac{\beta_i}{\gamma_i + \beta_i} $$</p>
+<p>At the begining, $H_M$ will be dominationg, so betas will be large and gammas will be small. This way, the control function will tend to the value of 1. In the end, gammas will increase making the control funciton to zero thereby dominating $H_C$.</p>
+<h2 id="implementation">Implementation<a hidden class="anchor" aria-hidden="true" href="#implementation">#</a></h2>
+<p>We build parameterized sequences in pulser to implement the alternating hamiltonians $H_M$ and $H_C$. Remember the expression for the global hamiltonian</p>
+<p>$$H_Q = \sum_{i=1}^N \frac{\hbar\Omega(t)}{2} \sigma_i^x - \sum_{i=1}^N \frac{\hbar \delta(t)}{2} \sigma_i^z+\sum_{j \lt i} \frac{C_6}{|\textbf{r}_i-\textbf{r}_j|^{6}}n_i n_j $$</p>
+<p>We can observe that the $H_M$ is defined when the laser is turned on and detuning is turned off i.e. $\Omega &gt; 0, \delta = 0$. Therefore to implement a beta pulse for the mixer hamiltonian, we choose $\Omega = 1, \delta = 0$. In constrast, for the cost hamiltonian we choose $\Omega = 0, \delta = 1$. The parameters control the duration of pulses which will be optimized by the classical optimizer.</p>
+<div>
+	<img src="../images/qaoa_seq.png" alt="QAOA sequences" style="margin:auto" />
+	<p align='center'>Pulses for $H_M$ and $H_C$ with random parameters for 2 alternating layers</p>
+</div>
+<p>The cost function which we aim to minimize remains the same that we used in QAA</p>
+<p>$$ C(x_1, x_2, \dots x_N) = - \sum_{i=1}^{N}x_i + U \sum_{(i,j) \in E} x_i x_j$$</p>
+<p>To implement this cost for QAOA, we can represent it as follows</p>
+<p>$$ f(z) = -1^{T}x +  Ux^{T}Ax $$</p>
+<p>where A is the adjacency matrix of the graph $G=(V,E)$, $U$ is the penalty coefficient and $x$ is a binary vector representing the nodes in the independent. We consider only the upper triangular matrix of A otherwise the cost function will count the node connections twice. We use the Nelder-Mead classical optimizer from scipy. Simulation results into the following historgram of counts.</p>
+<p align="center">
+  <img src="../images/qaoa_hist.png">
+</p>
+<p>The bitstring with maximum counts is <code>1010011</code> which is indeed the MIS for the given graph. The set of nodes is $\{0, 2, 5, 6\}$. The optimal parameters result into the following pulses.</p>
+<div>
+	<img src="../images/optimal_qaoa_seq.png" alt="QAOA sequences" style="margin:auto" />
+	<p align='center'>Pulses for $H_M$ and $H_C$ with optimized parameters</p>
+</div>
+<p>Compared to QAA, QAOA is not much effective. Although, increasing the number of layers can boost the probability of success, it comes at the cost of high depths.</p>
+<p>The code to reproduce the figures can be found <a href="https://github.com/Gopal-Dahale/ILearnQuantum/tree/main/mis_neutral_atoms">here</a>. A more general tutorial is available in the Pulser&rsquo;s docs 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#pulser_tut"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Pulser"><span itemprop="familyName">Pasqal</span></span>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Pasqal</span>,&#32;
+    <meta itemprop="givenName" content="Pulser" />
+    P.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>QAOA and QAA to solve a QUBO problem</i></span>.
+  &#32;Retrieved from&#32;
+  <a href="https://pulser.readthedocs.io/en/stable/tutorials/qubo.html"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://pulser.readthedocs.io/en/stable/tutorials/qubo.html</a></span>
+
+</span></span>)</span>
+.</p>
+<h2 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h2>
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+<section class="hugo-cite-bibliography">
+  <dl>
+    
+
+      <div id="pulser_tut">
+        <dt>
+          Pasqal
+
+          
+          (n.d.)</dt>
+
+        <dd>
+          
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Pasqal</span>,&#32;
+    <meta itemprop="givenName" content="Pulser" />
+    P.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>QAOA and QAA to solve a QUBO problem</i></span>.
+  &#32;Retrieved from&#32;
+  <a href="https://pulser.readthedocs.io/en/stable/tutorials/qubo.html"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://pulser.readthedocs.io/en/stable/tutorials/qubo.html</a></span>
+
+</dd>
+
+      </div>
+
+      <div id="qa_nn">
+        <dt>
+          Verdon,&#32;
+          Broughton&#32;&amp;&#32;Biamonte
+
+          
+          (n.d.)</dt>
+
+        <dd>
+          
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="default"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Verdon</span>,&#32;
+    <meta itemprop="givenName" content="Guillaume" />
+    G.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Broughton</span>,&#32;
+    <meta itemprop="givenName" content="Michael" />
+    M.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Biamonte</span>,&#32;
+    <meta itemprop="givenName" content="Jacob" />
+    J.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>A quantum algorithm to train neural networks using low-depth circuits</i></span>.
+  </span>
+
+</dd>
+
+      </div>
+  </dl>
+</section>
+
+
+
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://gopal-dahale.github.io/ILearnQuantum/tags/neutral-atoms/">Neutral Atoms</a></li>
+    </ul>
+  </footer><div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ilearnquantum" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://gopal-dahale.github.io/ILearnQuantum/">ILearnQuantum</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
