@@ -61,3 +61,6 @@ I’m excited about the opportunities and challenges that lie ahead at EPFL!
 
 Here's to staying curious, working together, and making a difference! 💫
 
+## References
+
+{{< bibliography cited >}}
