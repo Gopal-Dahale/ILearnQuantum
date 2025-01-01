@@ -1,0 +1,272 @@
+[
+	{
+	  "id": "forestano2024comparison",
+	  "type": "article-journal",
+	  "title": "A comparison between invariant and equivariant classical and quantum graph neural networks",
+	  "author": [
+		{ "family": "Forestano", "given": "Roy T" },
+		{ "family": "Comajoan Cara", "given": "Marçal" },
+		{ "family": "Dahale", "given": "Gopal Ramesh" },
+		{ "family": "Dong", "given": "Zhongtian" },
+		{ "family": "Gleyzer", "given": "Sergei" },
+		{ "family": "Justice", "given": "Daniel" },
+		{ "family": "Kong", "given": "Kyoungchul" },
+		{ "family": "Magorsch", "given": "Tom" },
+		{ "family": "Matchev", "given": "Konstantin T" },
+		{ "family": "Matcheva", "given": "Katia" },
+		{ "literal": "and others" }
+	  ],
+	  "container-title": "Axioms",
+	  "volume": "13",
+	  "issue": "3",
+	  "page": "160",
+	  "publisher": "MDPI",
+	  "issued": { "date-parts": [[2024]] }
+	},
+	{
+		"id": "unlu2024hybrid",
+		"type": "article-journal",
+		"title": "Hybrid Quantum Vision Transformers for Event Classification in High Energy Physics",
+		"author": [
+		{ "family": "Unlu", "given": "Eyup B" },
+		{ "family": "Comajoan Cara", "given": "Marçal" },
+		{ "family": "Dahale", "given": "Gopal Ramesh" },
+		{ "family": "Dong", "given": "Zhongtian" },
+		{ "family": "Forestano", "given": "Roy T" },
+		{ "family": "Gleyzer", "given": "Sergei" },
+		{ "family": "Justice", "given": "Daniel" },
+		{ "family": "Kong", "given": "Kyoungchul" },
+		{ "family": "Magorsch", "given": "Tom" },
+		{ "family": "Matchev", "given": "Konstantin T" },
+		{ "literal": "and others" }
+		],
+		"container-title": "Axioms",
+		"volume": "13",
+		"issue": "3",
+		"page": "187",
+		"publisher": "MDPI",
+		"issued": { "date-parts": [[2024]] }
+	},
+	{
+		"id": "dong2024z2",
+		"type": "article-journal",
+		"title": "ℤ₂×ℤ₂ Equivariant Quantum Neural Networks: Benchmarking against Classical Neural Networks",
+		"author": [
+		{ "family": "Dong", "given": "Zhongtian" },
+		{ "family": "Comajoan Cara", "given": "Marçal" },
+		{ "family": "Dahale", "given": "Gopal Ramesh" },
+		{ "family": "Forestano", "given": "Roy T" },
+		{ "family": "Gleyzer", "given": "Sergei" },
+		{ "family": "Justice", "given": "Daniel" },
+		{ "family": "Kong", "given": "Kyoungchul" },
+		{ "family": "Magorsch", "given": "Tom" },
+		{ "family": "Matchev", "given": "Konstantin T" },
+		{ "family": "Matcheva", "given": "Katia" },
+		{ "literal": "and others" }
+		],
+		"container-title": "Axioms",
+		"volume": "13",
+		"issue": "3",
+		"page": "188",
+		"publisher": "MDPI",
+		"issued": { "date-parts": [[2024]] }
+	},
+	{
+		"id": "qattention",
+		"type": "article",
+		"title": "Quantum Attention for Vision Transformers in High Energy Physics",
+		"author": [
+		  {
+			"family": "Tesi",
+			"given": "Alessandro"
+		  },
+		  {
+			"family": "Dahale",
+			"given": "Gopal Ramesh"
+		  },
+		  {
+			"family": "Gleyzer",
+			"given": "Sergei"
+		  },
+		  {
+			"family": "Kong",
+			"given": "Kyoungchul"
+		  },
+		  {
+			"family": "Magorsch",
+			"given": "Tom"
+		  },
+		  {
+			"family": "Matchev",
+			"given": "Konstantin T"
+		  },
+		  {
+			"family": "Matcheva",
+			"given": "Katia"
+		  }
+		],
+		"journal": "arXiv preprint arXiv:2411.13520",
+		"year": "2024"
+	  },
+	  {
+		"id": "qvision",
+		"type": "article",
+		"title": "Quantum Vision Transformers for Quark--Gluon Classification",
+		"author": [
+		  {
+			"family": "Comajoan",
+			"given": "Marçal"
+		  },
+		  {
+			"family": "Dahale",
+			"given": "Gopal Ramesh"
+		  },
+		  {
+			"family": "Dong",
+			"given": "Zhongtian"
+		  },
+		  {
+			"family": "Forestano",
+			"given": "Roy T"
+		  },
+		  {
+			"family": "Gleyzer",
+			"given": "Sergei"
+		  },
+		  {
+			"family": "Justice",
+			"given": "Daniel"
+		  },
+		  {
+			"family": "Kong",
+			"given": "Kyoungchul"
+		  },
+		  {
+			"family": "Magorsch",
+			"given": "Tom"
+		  },
+		  {
+			"family": "Matchev",
+			"given": "Konstantin T"
+		  },
+		  {
+			"family": "Matcheva",
+			"given": "Katia"
+		  },
+		  {
+			"family": "others",
+			"given": ""
+		  }
+		],
+		"journal": "Axioms",
+		"volume": "13",
+		"number": "5",
+		"pages": "323",
+		"year": "2024",
+		"publisher": "MDPI"
+	  },
+	  {
+		"id": "guadarrama2024quantum",
+		"type": "inproceedings",
+		"title": "Quantum Generative Adversarial Networks for High Energy Physics Simulations",
+		"author": [
+		  {
+			"family": "Guadarrama",
+			"given": "Rey"
+		  },
+		  {
+			"family": "Gleyzer",
+			"given": "Sergei"
+		  },
+		  {
+			"family": "Matchev",
+			"given": "Konstantin"
+		  },
+		  {
+			"family": "Matcheva",
+			"given": "Katia"
+		  },
+		  {
+			"family": "Kong",
+			"given": "Kyoungchul"
+		  },
+		  {
+			"family": "Dahale",
+			"given": "Gopal Ramesh"
+		  },
+		  {
+			"family": "Baidachna",
+			"given": "Mariia"
+		  },
+		  {
+			"family": "Hernández-Arellano",
+			"given": "Haydee"
+		  },
+		  {
+			"family": "Pedraza",
+			"given": "Isabel"
+		  }
+		],
+		"booktitle": "NeurIPS 2024 Workshop Machine Learning with new Compute Paradigms"
+	  },
+	  {
+		"id": "baidachna2024quantum",
+		"type": "inproceedings",
+		"title": "Quantum Diffusion Model for Quark and Gluon Jet Generation",
+		"author": [
+		  {
+			"family": "Baidachna",
+			"given": "Mariia"
+		  },
+		  {
+			"family": "Gleyzer",
+			"given": "Sergei"
+		  },
+		  {
+			"family": "Matchev",
+			"given": "Konstantin"
+		  },
+		  {
+			"family": "Matcheva",
+			"given": "Katia"
+		  },
+		  {
+			"family": "Kong",
+			"given": "Kyoungchul"
+		  },
+		  {
+			"family": "Dahale",
+			"given": "Gopal Ramesh"
+		  },
+		  {
+			"family": "Pedraza",
+			"given": "Isabel"
+		  },
+		  {
+			"family": "Magorsch",
+			"given": "Tom"
+		  },
+		  {
+			"family": "Guadarrama",
+			"given": "Rey"
+		  }
+		],
+		"booktitle": "NeurIPS 2024 Workshop Machine Learning with new Compute Paradigms"
+	  },
+	  {
+		"id": "qkrishi",
+		"type": "article",
+		"author": [
+		  {
+			"family": "Bagchi",
+			"given": "Sohini"
+		  }
+		],
+		"title": "Gen AI, open banking and quantum leading us to an exciting growth path: Axis Bank CIO",
+		"container-title": "TechCircle",
+		"year": "2024",
+		"URL": "https://www.techcircle.in/2024/05/27/gen-ai-open-banking-and-quantum-leading-us-to-an-exciting-growth-path-axis-bank-cio",
+		"note": "Accessed: 2025-01-01"
+	  }
+
+]

@@ -5,7 +5,18 @@
     <link>https://gopal-dahale.github.io/ILearnQuantum/posts/</link>
     <description>Recent content in Posts on ILearnQuantum</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 18 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://gopal-dahale.github.io/ILearnQuantum/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 01 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://gopal-dahale.github.io/ILearnQuantum/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2024 Recap: A Year in Quantum Science</title>
+      <link>https://gopal-dahale.github.io/ILearnQuantum/posts/2024_recap/2024_recap/</link>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://gopal-dahale.github.io/ILearnQuantum/posts/2024_recap/2024_recap/</guid>
+      <description>As 2024 ends, I find myself reflecting on a year full of collaboration, learning, and meaningful contributions. Here&amp;rsquo;s what made this year special:
+Google Summer of Code and Beyond 🚀 I feel lucky to have worked with amazing people from ML4SCI during and after Google Summer of Code. We have a few papers at our hand 📚:
+Quantum Vision Transformers for Quark–Gluon Classification ( Citation: Comajoan,&amp;#32;Dahale &amp;amp; al.,&amp;#32; Comajoan,&amp;#32; M.,&amp;#32; Dahale,&amp;#32; G.</description>
+    </item>
+    
     <item>
       <title>QAOA to solve MIS</title>
       <link>https://gopal-dahale.github.io/ILearnQuantum/posts/mis/qaoa/</link>

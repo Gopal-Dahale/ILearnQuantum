@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>2024 Recap: A Year in Quantum Science | ILearnQuantum</title>
+<meta name="keywords" content="">
+<meta name="description" content="As 2024 ends, I find myself reflecting on a year full of collaboration, learning, and meaningful contributions. Here&rsquo;s what made this year special:
+Google Summer of Code and Beyond 🚀 I feel lucky to have worked with amazing people from ML4SCI during and after Google Summer of Code. We have a few papers at our hand 📚:
+Quantum Vision Transformers for Quark–Gluon Classification ( Citation: Comajoan,&#32;Dahale &amp; al.,&#32; Comajoan,&#32; M.,&#32; Dahale,&#32; G.">
+<meta name="author" content="Gopal Ramesh Dahale">
+<link rel="canonical" href="https://gopal-dahale.github.io/ILearnQuantum/posts/2024_recap/2024_recap/">
+<link crossorigin="anonymous" href="/ILearnQuantum/assets/css/stylesheet.4fd967528ad5a75f3ce961dbda94c03a4739e156197539fdac72973ab0f932e0.css" integrity="sha256-T9lnUorVp1886WHb2pTAOkc54VYZdTn9rHKXOrD5MuA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/ILearnQuantum/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://gopal-dahale.github.io/ILearnQuantum/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://gopal-dahale.github.io/ILearnQuantum/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://gopal-dahale.github.io/ILearnQuantum/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://gopal-dahale.github.io/ILearnQuantum/apple-touch-icon.png">
+<link rel="mask-icon" href="https://gopal-dahale.github.io/ILearnQuantum/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9LHHHMGS3N"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9LHHHMGS3N', { 'anonymize_ip': false });
+}
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+onload="renderMathInElement(document.body,
+        {
+              delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false},
+              ],
+              throwOnError : false
+          });"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="/ILearnQuantum/hugo-cite.css" />
+<meta property="og:title" content="2024 Recap: A Year in Quantum Science" />
+<meta property="og:description" content="As 2024 ends, I find myself reflecting on a year full of collaboration, learning, and meaningful contributions. Here&rsquo;s what made this year special:
+Google Summer of Code and Beyond 🚀 I feel lucky to have worked with amazing people from ML4SCI during and after Google Summer of Code. We have a few papers at our hand 📚:
+Quantum Vision Transformers for Quark–Gluon Classification ( Citation: Comajoan,&#32;Dahale &amp; al.,&#32; Comajoan,&#32; M.,&#32; Dahale,&#32; G." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gopal-dahale.github.io/ILearnQuantum/posts/2024_recap/2024_recap/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-01T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-01-01T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2024 Recap: A Year in Quantum Science"/>
+<meta name="twitter:description" content="As 2024 ends, I find myself reflecting on a year full of collaboration, learning, and meaningful contributions. Here&rsquo;s what made this year special:
+Google Summer of Code and Beyond 🚀 I feel lucky to have worked with amazing people from ML4SCI during and after Google Summer of Code. We have a few papers at our hand 📚:
+Quantum Vision Transformers for Quark–Gluon Classification ( Citation: Comajoan,&#32;Dahale &amp; al.,&#32; Comajoan,&#32; M.,&#32; Dahale,&#32; G."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://gopal-dahale.github.io/ILearnQuantum/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "2024 Recap: A Year in Quantum Science",
+      "item": "https://gopal-dahale.github.io/ILearnQuantum/posts/2024_recap/2024_recap/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "2024 Recap: A Year in Quantum Science",
+  "name": "2024 Recap: A Year in Quantum Science",
+  "description": "As 2024 ends, I find myself reflecting on a year full of collaboration, learning, and meaningful contributions. Here\u0026rsquo;s what made this year special:\nGoogle Summer of Code and Beyond 🚀 I feel lucky to have worked with amazing people from ML4SCI during and after Google Summer of Code. We have a few papers at our hand 📚:\nQuantum Vision Transformers for Quark–Gluon Classification ( Citation: Comajoan,\u0026#32;Dahale \u0026amp; al.,\u0026#32; Comajoan,\u0026#32; M.,\u0026#32; Dahale,\u0026#32; G.",
+  "keywords": [
+    ""
+  ],
+  "articleBody": "As 2024 ends, I find myself reflecting on a year full of collaboration, learning, and meaningful contributions. Here’s what made this year special:\nGoogle Summer of Code and Beyond 🚀 I feel lucky to have worked with amazing people from ML4SCI during and after Google Summer of Code. We have a few papers at our hand 📚:\nQuantum Vision Transformers for Quark–Gluon Classification ( Citation: Comajoan, Dahale \u0026 al., Comajoan, M., Dahale, G., Dong, Z., Forestano, R., Gleyzer, S., Justice, D., Kong, K., Magorsch, T., Matchev, K., Matcheva, K. \u0026 others (n.d.). Quantum Vision Transformers for Quark–Gluon Classification. ) . ℤ₂ × ℤ₂ Equivariant Quantum Neural Networks: Benchmarking Against Classical Neural Networks ( Citation: Dong, Comajoan Cara \u0026 al., 2024 Dong, Z., Comajoan Cara, M., Dahale, G., Forestano, R., Gleyzer, S., Justice, D., Kong, K., Magorsch, T., Matchev, K., Matcheva, K. \u0026 (2024). ℤ₂×ℤ₂ Equivariant Quantum Neural Networks: Benchmarking against Classical Neural Networks. Axioms, 13(3). 188. ) . Hybrid Quantum Vision Transformers for Event Classification in High Energy Physics ( Citation: Unlu, Comajoan Cara \u0026 al., 2024 Unlu, E., Comajoan Cara, M., Dahale, G., Dong, Z., Forestano, R., Gleyzer, S., Justice, D., Kong, K., Magorsch, T., Matchev, K. \u0026 (2024). Hybrid Quantum Vision Transformers for Event Classification in High Energy Physics. Axioms, 13(3). 187. ) . A Comparison Between Invariant and Equivariant Classical and Quantum Graph Neural Networks ( Citation: Forestano, Comajoan Cara \u0026 al., 2024 Forestano, R., Comajoan Cara, M., Dahale, G., Dong, Z., Gleyzer, S., Justice, D., Kong, K., Magorsch, T., Matchev, K., Matcheva, K. \u0026 (2024). A comparison between invariant and equivariant classical and quantum graph neural networks. Axioms, 13(3). 160. ) . Co-authoring them reminded me how teamwork and shared interest can push quantum and classical machine learning forward. I am grateful to my mentors and collaborators for their guidance and support.\nMentoring @ ML4SCI, Google Summer of Code 🌟 Being a mentor this year was an enriching experience. For someone who codes a lot, it was valuable to experience to guide new contributors in this field. It made me feel humble and inspired. Thank you to the amazing mentees for putting in so much effort 💪:\nRey Guadarrama: QGAN for Monte Carlo Simulations ( Citation: Guadarrama, Gleyzer \u0026 al., Guadarrama, R., Gleyzer, S., Matchev, K., Matcheva, K., Kong, K., Dahale, G., Baidachna, M., Hernández-Arellano, H. \u0026 Pedraza, I. (n.d.). Quantum Generative Adversarial Networks for High Energy Physics Simulations. ) . Masha Baidachna: Quantum Diffusion Model for HEP ( Citation: Baidachna, Gleyzer \u0026 al., Baidachna, M., Gleyzer, S., Matchev, K., Matcheva, K., Kong, K., Dahale, G., Pedraza, I., Magorsch, T. \u0026 Guadarrama, R. (n.d.). Quantum Diffusion Model for Quark and Gluon Jet Generation. ) . Alessandro Tesi: Quantum Transformer for HEP Analysis ( Citation: Tesi, Dahale \u0026 al., Tesi, A., Dahale, G., Gleyzer, S., Kong, K., Magorsch, T., Matchev, K. \u0026 Matcheva, K. (n.d.). Quantum Attention for Vision Transformers in High Energy Physics. ) . Sanya Nanda: Learning Quantum Representations of Classical HEP Data with Contrastive Learning. Adithya Penagonda: QGAN for HEP Analysis at LHC. I appreciate ML4SCI, especially Prof. Sergei Gleyzer for this opportunity.\nMy First Quantum Role: Thank You, Qkrishi 🎉 Joining Qkrishi as a Research Software Engineer shaped a key part of 2024. I explored how quantum computing can be used in the financial industry while collaborating with experts in the field. Highlights include:\nImplemented quantum algorithms for portfolio optimization and fraud detection at utility scale. Developed a proof of concept with the third largest private sector bank in India ( Citation: Bagchi, Bagchi, S. (n.d.). Gen AI, open banking and quantum leading us to an exciting growth path: Axis Bank CIO. TechCircle. Retrieved from https://www.techcircle.in/2024/05/27/gen-ai-open-banking-and-quantum-leading-us-to-an-exciting-growth-path-axis-bank-cio ) . Represented our work on portfolio optimization at eOTF TechFest 2024. Thank you to the Qkrishi team for making my first full-time quantum role so fulfilling!\nEPFL: Where the Magic Happens ✨ This year also marked the beginning of my journey at EPFL in the Master’s program in Quantum Science and Engineering. So far, I got a chance to work on my first-semester project, Quantum Natural Gradient in Superoperator Formalism, with the Quantum Information and Computing (QIC) group under Prof. Zoë Holmes and guided by Tyson Jones.\nThe project focused on extending Quantum Natural Gradient (QNG) to noisy quantum circuits using Superoperator Formalism, allowing simulations of noisy circuits in the statevector picture (More details coming soon).\nI’m excited about the opportunities and challenges that lie ahead at EPFL!\nAchievements to Celebrate 🏆 IBM Quantum Challenge 2024 Achievement. Unitary Hack: Resolved 5 issues across 4 projects, ranking in the top 10 out of 68 hackers. QHack 2024: First Place Prize for my project “Simulating lithium-ion batteries on quantum computers,” awarded by NVIDIA \u0026 Denver Dataworks. Placed in the top 100 teams in the Quantum Coding Challenge Competition. PennyLane: Certificate of Achievement for proficiency in the basics of PennyLane. Closing Thoughts 🌈 2024 has helped me grow, both professionally and personally. I’m truly grateful to my mentors, collaborators, and teams who made these accomplishments possible. A special thanks to Prof. Dhiman Saha, who introduced me to quantum computing through his course Quantum Symmetric-Key Cryptanalysis at IIT Bhilai. His passion for learning and teaching continues to inspire me. As I move into 2025, I carry with me the lessons learned, the relationships, and a fresh drive to push quantum computing forward.\nHere’s to staying curious, working together, and making a difference! 💫\n",
+  "wordCount" : "885",
+  "inLanguage": "en",
+  "datePublished": "2024-01-01T00:00:00Z",
+  "dateModified": "2024-01-01T00:00:00Z",
+  "author":[{
+    "@type": "Person",
+    "name": "Gopal Ramesh Dahale"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://gopal-dahale.github.io/ILearnQuantum/posts/2024_recap/2024_recap/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ILearnQuantum",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gopal-dahale.github.io/ILearnQuantum/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://gopal-dahale.github.io/ILearnQuantum/" accesskey="h" title="ILearnQuantum (Alt + H)">ILearnQuantum</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://gopal-dahale.github.io/ILearnQuantum/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://gopal-dahale.github.io/ILearnQuantum/">Home</a>&nbsp;»&nbsp;<a href="https://gopal-dahale.github.io/ILearnQuantum/posts/">Posts</a></div>
+    <h1 class="post-title">
+      2024 Recap: A Year in Quantum Science
+    </h1>
+    <div class="post-meta"><span title='2024-01-01 00:00:00 +0000 UTC'>January 1, 2024</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Gopal Ramesh Dahale
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#google-summer-of-code-and-beyond-" aria-label="Google Summer of Code and Beyond 🚀">Google Summer of Code and Beyond 🚀</a></li>
+                <li>
+                    <a href="#mentoring--ml4sci-google-summer-of-code-" aria-label="Mentoring @ ML4SCI, Google Summer of Code 🌟">Mentoring @ ML4SCI, Google Summer of Code 🌟</a></li>
+                <li>
+                    <a href="#my-first-quantum-role-thank-you-qkrishi-" aria-label="My First Quantum Role: Thank You, Qkrishi 🎉">My First Quantum Role: Thank You, Qkrishi 🎉</a></li>
+                <li>
+                    <a href="#epfl-where-the-magic-happens-" aria-label="EPFL: Where the Magic Happens ✨">EPFL: Where the Magic Happens ✨</a></li>
+                <li>
+                    <a href="#achievements-to-celebrate-" aria-label="Achievements to Celebrate 🏆">Achievements to Celebrate 🏆</a></li>
+                <li>
+                    <a href="#closing-thoughts-" aria-label="Closing Thoughts 🌈">Closing Thoughts 🌈</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>As 2024 ends, I find myself reflecting on a year full of collaboration, learning, and meaningful contributions. Here&rsquo;s what made this year special:</p>
+<h3 id="google-summer-of-code-and-beyond-">Google Summer of Code and Beyond 🚀<a hidden class="anchor" aria-hidden="true" href="#google-summer-of-code-and-beyond-">#</a></h3>
+<p>I feel lucky to have worked with amazing people from <a href="https://ml4sci.org/">ML4SCI</a> during and after Google Summer of Code. We have a few papers at our hand 📚:</p>
+<ul>
+<li>Quantum Vision Transformers for Quark–Gluon Classification 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#qvision"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Marçal"><span itemprop="familyName">Comajoan</span></span>,&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Gopal Ramesh"><span itemprop="familyName">Dahale</span></span>
+                  <em>&amp; al.</em>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/Article"
+      data-type="article"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Comajoan</span>,&#32;
+    <meta itemprop="givenName" content="Marçal" />
+    M.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Dahale</span>,&#32;
+    <meta itemprop="givenName" content="Gopal Ramesh" />
+    G.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Dong</span>,&#32;
+    <meta itemprop="givenName" content="Zhongtian" />
+    Z.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Forestano</span>,&#32;
+    <meta itemprop="givenName" content="Roy T" />
+    R.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Gleyzer</span>,&#32;
+    <meta itemprop="givenName" content="Sergei" />
+    S.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Justice</span>,&#32;
+    <meta itemprop="givenName" content="Daniel" />
+    D.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Kong</span>,&#32;
+    <meta itemprop="givenName" content="Kyoungchul" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Magorsch</span>,&#32;
+    <meta itemprop="givenName" content="Tom" />
+    T.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matchev</span>,&#32;
+    <meta itemprop="givenName" content="Konstantin T" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matcheva</span>,&#32;
+    <meta itemprop="givenName" content="Katia" />
+    K.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">others</span></span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">Quantum Vision Transformers for Quark&ndash;Gluon Classification</span>.</span>
+
+
+
+
+</span></span>)</span>
+.</li>
+<li>ℤ₂ × ℤ₂ Equivariant Quantum Neural Networks: Benchmarking Against Classical Neural Networks 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#dong2024z2"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Zhongtian"><span itemprop="familyName">Dong</span></span>,&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Marçal"><span itemprop="familyName">Comajoan Cara</span></span>
+                  <em>&amp; al.</em>,&#32;<span itemprop="datePublished">2024</span></a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/Article"
+      data-type="article"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Dong</span>,&#32;
+    <meta itemprop="givenName" content="Zhongtian" />
+    Z.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Comajoan Cara</span>,&#32;
+    <meta itemprop="givenName" content="Marçal" />
+    M.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Dahale</span>,&#32;
+    <meta itemprop="givenName" content="Gopal Ramesh" />
+    G.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Forestano</span>,&#32;
+    <meta itemprop="givenName" content="Roy T" />
+    R.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Gleyzer</span>,&#32;
+    <meta itemprop="givenName" content="Sergei" />
+    S.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Justice</span>,&#32;
+    <meta itemprop="givenName" content="Daniel" />
+    D.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Kong</span>,&#32;
+    <meta itemprop="givenName" content="Kyoungchul" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Magorsch</span>,&#32;
+    <meta itemprop="givenName" content="Tom" />
+    T.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matchev</span>,&#32;
+    <meta itemprop="givenName" content="Konstantin T" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matcheva</span>,&#32;
+    <meta itemprop="givenName" content="Katia" />
+    K.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"></span>
+  &#32;
+    (<span itemprop="datePublished">2024</span>).
+  &#32;<span itemprop="name">ℤ₂×ℤ₂ Equivariant Quantum Neural Networks: Benchmarking against Classical Neural Networks</span>.<i>
+    <span itemprop="about">Axioms</span>,&#32;13(3)</i>.&#32;<span itemprop="pagination">188</span>.</span>
+
+
+
+
+</span></span>)</span>
+.</li>
+<li>Hybrid Quantum Vision Transformers for Event Classification in High Energy Physics 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#unlu2024hybrid"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Eyup B"><span itemprop="familyName">Unlu</span></span>,&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Marçal"><span itemprop="familyName">Comajoan Cara</span></span>
+                  <em>&amp; al.</em>,&#32;<span itemprop="datePublished">2024</span></a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/Article"
+      data-type="article"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Unlu</span>,&#32;
+    <meta itemprop="givenName" content="Eyup B" />
+    E.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Comajoan Cara</span>,&#32;
+    <meta itemprop="givenName" content="Marçal" />
+    M.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Dahale</span>,&#32;
+    <meta itemprop="givenName" content="Gopal Ramesh" />
+    G.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Dong</span>,&#32;
+    <meta itemprop="givenName" content="Zhongtian" />
+    Z.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Forestano</span>,&#32;
+    <meta itemprop="givenName" content="Roy T" />
+    R.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Gleyzer</span>,&#32;
+    <meta itemprop="givenName" content="Sergei" />
+    S.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Justice</span>,&#32;
+    <meta itemprop="givenName" content="Daniel" />
+    D.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Kong</span>,&#32;
+    <meta itemprop="givenName" content="Kyoungchul" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Magorsch</span>,&#32;
+    <meta itemprop="givenName" content="Tom" />
+    T.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matchev</span>,&#32;
+    <meta itemprop="givenName" content="Konstantin T" />
+    K.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"></span>
+  &#32;
+    (<span itemprop="datePublished">2024</span>).
+  &#32;<span itemprop="name">Hybrid Quantum Vision Transformers for Event Classification in High Energy Physics</span>.<i>
+    <span itemprop="about">Axioms</span>,&#32;13(3)</i>.&#32;<span itemprop="pagination">187</span>.</span>
+
+
+
+
+</span></span>)</span>
+.</li>
+<li>A Comparison Between Invariant and Equivariant Classical and Quantum Graph Neural Networks 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#forestano2024comparison"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Roy T"><span itemprop="familyName">Forestano</span></span>,&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Marçal"><span itemprop="familyName">Comajoan Cara</span></span>
+                  <em>&amp; al.</em>,&#32;<span itemprop="datePublished">2024</span></a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/Article"
+      data-type="article"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Forestano</span>,&#32;
+    <meta itemprop="givenName" content="Roy T" />
+    R.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Comajoan Cara</span>,&#32;
+    <meta itemprop="givenName" content="Marçal" />
+    M.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Dahale</span>,&#32;
+    <meta itemprop="givenName" content="Gopal Ramesh" />
+    G.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Dong</span>,&#32;
+    <meta itemprop="givenName" content="Zhongtian" />
+    Z.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Gleyzer</span>,&#32;
+    <meta itemprop="givenName" content="Sergei" />
+    S.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Justice</span>,&#32;
+    <meta itemprop="givenName" content="Daniel" />
+    D.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Kong</span>,&#32;
+    <meta itemprop="givenName" content="Kyoungchul" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Magorsch</span>,&#32;
+    <meta itemprop="givenName" content="Tom" />
+    T.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matchev</span>,&#32;
+    <meta itemprop="givenName" content="Konstantin T" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matcheva</span>,&#32;
+    <meta itemprop="givenName" content="Katia" />
+    K.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"></span>
+  &#32;
+    (<span itemprop="datePublished">2024</span>).
+  &#32;<span itemprop="name">A comparison between invariant and equivariant classical and quantum graph neural networks</span>.<i>
+    <span itemprop="about">Axioms</span>,&#32;13(3)</i>.&#32;<span itemprop="pagination">160</span>.</span>
+
+
+
+
+</span></span>)</span>
+.</li>
+</ul>
+<p>Co-authoring them reminded me how teamwork and shared interest can push quantum and classical machine learning forward. I am grateful to my mentors and collaborators for their guidance and support.</p>
+<h3 id="mentoring--ml4sci-google-summer-of-code-">Mentoring @ ML4SCI, Google Summer of Code 🌟<a hidden class="anchor" aria-hidden="true" href="#mentoring--ml4sci-google-summer-of-code-">#</a></h3>
+<p>Being a mentor this year was an enriching experience. For someone who codes a lot, it was valuable to experience to guide new contributors in this field. It made me feel humble and inspired. Thank you to the amazing mentees for putting in so much effort 💪:</p>
+<ul>
+<li><a href="https://www.linkedin.com/in/reyguadarrama/">Rey Guadarrama</a>: QGAN for Monte Carlo Simulations 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#guadarrama2024quantum"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Rey"><span itemprop="familyName">Guadarrama</span></span>,&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Sergei"><span itemprop="familyName">Gleyzer</span></span>
+                  <em>&amp; al.</em>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="inproceedings"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Guadarrama</span>,&#32;
+    <meta itemprop="givenName" content="Rey" />
+    R.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Gleyzer</span>,&#32;
+    <meta itemprop="givenName" content="Sergei" />
+    S.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matchev</span>,&#32;
+    <meta itemprop="givenName" content="Konstantin" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matcheva</span>,&#32;
+    <meta itemprop="givenName" content="Katia" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Kong</span>,&#32;
+    <meta itemprop="givenName" content="Kyoungchul" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Dahale</span>,&#32;
+    <meta itemprop="givenName" content="Gopal Ramesh" />
+    G.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Baidachna</span>,&#32;
+    <meta itemprop="givenName" content="Mariia" />
+    M.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Hernández-Arellano</span>,&#32;
+    <meta itemprop="givenName" content="Haydee" />
+    H.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Pedraza</span>,&#32;
+    <meta itemprop="givenName" content="Isabel" />
+    I.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>Quantum Generative Adversarial Networks for High Energy Physics Simulations</i></span>.
+  </span>
+
+</span></span>)</span>
+.</li>
+<li><a href="https://www.linkedin.com/in/masha-baidachna-77a260247/">Masha Baidachna</a>: Quantum Diffusion Model for HEP 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#baidachna2024quantum"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Mariia"><span itemprop="familyName">Baidachna</span></span>,&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Sergei"><span itemprop="familyName">Gleyzer</span></span>
+                  <em>&amp; al.</em>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/CreativeWork"
+      data-type="inproceedings"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Baidachna</span>,&#32;
+    <meta itemprop="givenName" content="Mariia" />
+    M.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Gleyzer</span>,&#32;
+    <meta itemprop="givenName" content="Sergei" />
+    S.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matchev</span>,&#32;
+    <meta itemprop="givenName" content="Konstantin" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matcheva</span>,&#32;
+    <meta itemprop="givenName" content="Katia" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Kong</span>,&#32;
+    <meta itemprop="givenName" content="Kyoungchul" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Dahale</span>,&#32;
+    <meta itemprop="givenName" content="Gopal Ramesh" />
+    G.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Pedraza</span>,&#32;
+    <meta itemprop="givenName" content="Isabel" />
+    I.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Magorsch</span>,&#32;
+    <meta itemprop="givenName" content="Tom" />
+    T.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Guadarrama</span>,&#32;
+    <meta itemprop="givenName" content="Rey" />
+    R.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">
+    <i>Quantum Diffusion Model for Quark and Gluon Jet Generation</i></span>.
+  </span>
+
+</span></span>)</span>
+.</li>
+<li><a href="https://www.linkedin.com/in/alessandro-tesi-18b588291/">Alessandro Tesi</a>: Quantum Transformer for HEP Analysis 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#qattention"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Alessandro"><span itemprop="familyName">Tesi</span></span>,&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Gopal Ramesh"><span itemprop="familyName">Dahale</span></span>
+                  <em>&amp; al.</em>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/Article"
+      data-type="article"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Tesi</span>,&#32;
+    <meta itemprop="givenName" content="Alessandro" />
+    A.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Dahale</span>,&#32;
+    <meta itemprop="givenName" content="Gopal Ramesh" />
+    G.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Gleyzer</span>,&#32;
+    <meta itemprop="givenName" content="Sergei" />
+    S.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Kong</span>,&#32;
+    <meta itemprop="givenName" content="Kyoungchul" />
+    K.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Magorsch</span>,&#32;
+    <meta itemprop="givenName" content="Tom" />
+    T.</span>,&#32;
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matchev</span>,&#32;
+    <meta itemprop="givenName" content="Konstantin T" />
+    K.</span>&#32;&amp;&#32;<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Matcheva</span>,&#32;
+    <meta itemprop="givenName" content="Katia" />
+    K.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">Quantum Attention for Vision Transformers in High Energy Physics</span>.</span>
+
+
+
+
+</span></span>)</span>
+.</li>
+<li><a href="https://www.linkedin.com/in/sanya-nanda-aba12218b/">Sanya Nanda</a>: Learning Quantum Representations of Classical HEP Data with Contrastive Learning.</li>
+<li><a href="https://www.linkedin.com/in/adithyapenagonda/">Adithya Penagonda</a>: QGAN for HEP Analysis at LHC.</li>
+</ul>
+<p>I appreciate ML4SCI, especially <a href="http://sergeigleyzer.com/">Prof. Sergei Gleyzer</a> for this opportunity.</p>
+<h3 id="my-first-quantum-role-thank-you-qkrishi-">My First Quantum Role: Thank You, Qkrishi 🎉<a hidden class="anchor" aria-hidden="true" href="#my-first-quantum-role-thank-you-qkrishi-">#</a></h3>
+<p>Joining <a href="http://sergeigleyzer.com/">Qkrishi</a> as a Research Software Engineer shaped a key part of 2024. I explored how quantum computing can be used in the financial industry while collaborating with experts in the field. Highlights include:</p>
+<ul>
+<li>Implemented quantum algorithms for portfolio optimization and fraud detection at utility scale.</li>
+<li>Developed a proof of concept with the third largest private sector bank in India 
+
+
+
+
+<span class="hugo-cite-intext"
+        itemprop="citation">(<span class="hugo-cite-group">
+
+          <a href="#qkrishi"><span class="visually-hidden">Citation: </span><span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="givenName" content="Sohini"><span itemprop="familyName">Bagchi</span></span>,&#32;</a><span class="hugo-cite-citation"> 
+
+
+
+
+
+
+
+
+
+
+<span itemscope
+      itemtype="https://schema.org/Article"
+      data-type="article"><span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="familyName">Bagchi</span>,&#32;
+    <meta itemprop="givenName" content="Sohini" />
+    S.</span>
+  &#32;
+  (n.d.).
+  &#32;<span itemprop="name">Gen AI, open banking and quantum leading us to an exciting growth path: Axis Bank CIO</span>.<i>
+    <span itemprop="about">TechCircle</span></i>.&#32;Retrieved from&#32;
+  <a href="https://www.techcircle.in/2024/05/27/gen-ai-open-banking-and-quantum-leading-us-to-an-exciting-growth-path-axis-bank-cio"
+     itemprop="identifier"
+     itemtype="https://schema.org/URL">https://www.techcircle.in/2024/05/27/gen-ai-open-banking-and-quantum-leading-us-to-an-exciting-growth-path-axis-bank-cio</a></span>
+
+
+
+
+</span></span>)</span>
+.</li>
+<li>Represented our work on portfolio optimization at eOTF TechFest 2024.</li>
+</ul>
+<p>Thank you to the Qkrishi team for making my first full-time quantum role so fulfilling!</p>
+<h3 id="epfl-where-the-magic-happens-">EPFL: Where the Magic Happens ✨<a hidden class="anchor" aria-hidden="true" href="#epfl-where-the-magic-happens-">#</a></h3>
+<p>This year also marked the beginning of my journey at EPFL in the Master&rsquo;s program in Quantum Science and Engineering. So far, I got a chance to work on my first-semester project, <em>Quantum Natural Gradient in Superoperator Formalism</em>, with the Quantum Information and Computing (QIC) group under <a href="https://www.epfl.ch/labs/qic/prof-zoe-holmes/">Prof. Zoë Holmes</a> and guided by <a href="https://tysonjones.io/index.html">Tyson Jones</a>.</p>
+<p>The project focused on extending Quantum Natural Gradient (QNG) to noisy quantum circuits using Superoperator Formalism, allowing simulations of noisy circuits in the statevector picture (More details coming soon).</p>
+<p>I’m excited about the opportunities and challenges that lie ahead at EPFL!</p>
+<h3 id="achievements-to-celebrate-">Achievements to Celebrate 🏆<a hidden class="anchor" aria-hidden="true" href="#achievements-to-celebrate-">#</a></h3>
+<ul>
+<li><a href="https://www.credly.com/badges/7f45eb47-6aa3-4edd-8fb5-d248a621c05f/public_url">IBM Quantum Challenge 2024 Achievement</a>.</li>
+<li>Unitary Hack: <a href="https://drive.google.com/file/d/1wtRuK3T6rmntTSga3ZJ8DxnxXNb7unyL/view">Resolved 5 issues across 4 projects</a>, ranking in the top 10 out of 68 hackers.</li>
+<li>QHack 2024: <a href="https://pennylane.ai/blog/2024/03/qhack-2024-highlights#top-teams-and-projects">First Place Prize</a> for my project &ldquo;Simulating lithium-ion batteries on quantum computers,&rdquo; awarded by NVIDIA &amp; Denver Dataworks. Placed in the <a href="https://pennylane.ai/profile/gopald?certificate=qhack-2024-coding-challenges-top-100">top 100</a> teams in the Quantum Coding Challenge Competition.</li>
+<li>PennyLane: <a href="https://pennylane.ai/profile/gopald?certificate=introduction-to-pennylane">Certificate of Achievement</a> for proficiency in the basics of PennyLane.</li>
+</ul>
+<h3 id="closing-thoughts-">Closing Thoughts 🌈<a hidden class="anchor" aria-hidden="true" href="#closing-thoughts-">#</a></h3>
+<p>2024 has helped me grow, both professionally and personally. I’m truly grateful to my mentors, collaborators, and teams who made these accomplishments possible. A special thanks to <a href="https://www.iitbhilai.ac.in/index.php?pid=dhiman">Prof. Dhiman Saha</a>, who introduced me to quantum computing through his course Quantum Symmetric-Key Cryptanalysis at IIT Bhilai. His passion for learning and teaching continues to inspire me. As I move into 2025, I carry with me the lessons learned, the relationships, and a fresh drive to push quantum computing forward.</p>
+<p>Here&rsquo;s to staying curious, working together, and making a difference! 💫</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer><div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ilearnquantum" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2025 <a href="https://gopal-dahale.github.io/ILearnQuantum/">ILearnQuantum</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
