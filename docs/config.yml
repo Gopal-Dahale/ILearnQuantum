@@ -75,8 +75,8 @@ params:
           url: "https://twitter.com/gopald27"
         - name: medium
           url: "https://dahalegopal27.medium.com/"
-        - name: cv
-          url: "https://gopal-dahale.github.io/Resume/"
+        # - name: cv
+        #   url: "https://gopal-dahale.github.io/Resume/"
 
     #editPost:
     #    URL: "https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content"
